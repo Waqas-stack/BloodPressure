@@ -10,9 +10,11 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.o9tech.bloodpressure.ui.theme.BloodPressureTheme
 import com.o9tech.bloodpressure.ui.theme.Screens.CameraUp.CameraViewModel
 import com.o9tech.bloodpressure.ui.theme.Screens.DailySettings.DailySettingsSceen
@@ -21,11 +23,15 @@ import com.o9tech.bloodpressure.ui.theme.Screens.GernalSettings.GernalScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Information.InformationScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Language.LanguagesScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.MainScreen.MainScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.RecipesDetails.DetailsScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.RecipesDetails.DetailssScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.RecipesDetails.DetailssssScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Remminder.ReminderScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.TargetRange.TargetRangeScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.UnitSettings.UnintSettingsScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.bettersleep.BetterSleepScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.camera.BloodPressureViewModel
+import com.o9tech.bloodpressure.ui.theme.Screens.healthArticlsdetail.RecipeCategory
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -85,7 +91,27 @@ class   MainActivity : ComponentActivity() {
                         InformationScreen(navController)
                     }
                     composable("BetterSleepScreen") {
-                        BetterSleepScreen()
+                        BetterSleepScreen(navController)
+                    }
+                    composable(
+                        "details/{articleId}",
+                        arguments = listOf(navArgument("articleId") { type = NavType.IntType })
+                    ) { backStackEntry ->
+                        val articleId = backStackEntry.arguments?.getInt("articleId") ?: 0
+                        DetailsScreen(navController,articleId)
+                    }
+                    composable("RecipeCategory") {
+                        RecipeCategory(navController)
+                    }
+                    composable(
+                        route = "detailss/{itemId}",
+                        arguments = listOf(navArgument("itemId") { type = NavType.IntType })
+                    ) { backStackEntry ->
+                        val itemId = backStackEntry.arguments?.getInt("itemId") ?: 0
+                        DetailssScreen(itemId,navController)
+                    }
+                    composable("DetailssssScreen") {
+                        DetailssssScreen()
                     }
                 }
 //                val scaffoldState = rememberBottomSheetScaffoldState()

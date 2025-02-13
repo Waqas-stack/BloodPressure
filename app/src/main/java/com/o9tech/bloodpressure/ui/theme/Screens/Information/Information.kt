@@ -131,7 +131,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(fetal.backgroundColor)
                                     .clickable {
 //                                        navController.currentBackStackEntry?.savedStateHandle?.set("fetal", fetal)
 //                                        Log.d("NavDebug", "Saving fetal data: $fetal")
@@ -150,7 +150,7 @@ fun InformationScreen(navController: NavHostController) {
                                 Image(
                                     painter = painterResource(id = fetal.image),
                                     contentDescription = "",
-                                    modifier = Modifier.size(50.dp)
+                                    modifier = Modifier.size(150.dp)
                                 )
                                 Text(text = fetal.title,fontWeight = FontWeight.Bold)
 //
@@ -164,10 +164,10 @@ fun InformationScreen(navController: NavHostController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
-                            .background(Color.White)
-                            .padding(14.dp).clickable { 
-                                navController.navigate("FaqScreen")
-                            },
+                            .background(Color.White).clickable {
+//                                navController.navigate("FaqScreen")
+                            }
+                            .padding(14.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
 
@@ -184,12 +184,12 @@ fun InformationScreen(navController: NavHostController) {
                             )
                             Column {
                                 Text(
-                                    text = "Ask my condition",
+                                    text = "Have a question?",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 18.sp
                                 )
                                 Spacer(modifier = Modifier.size(2.dp))
-                                Text(text = "After every measurement", fontSize = 12.sp)
+                                Text(text = "find the answers here", fontSize = 12.sp)
                             }
                         }
 
@@ -232,7 +232,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(heart.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -241,7 +241,7 @@ fun InformationScreen(navController: NavHostController) {
                                 Image(
                                     painter = painterResource(id = heart.image),
                                     contentDescription = "",
-                                    modifier = Modifier.size(50.dp)
+                                    modifier = Modifier.size(150.dp)
                                 )
                                 Text(text = heart.title,fontWeight = FontWeight.Bold)
                             }
@@ -263,7 +263,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(health.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -272,7 +272,7 @@ fun InformationScreen(navController: NavHostController) {
                                 Image(
                                     painter = painterResource(id = health.image),
                                     contentDescription = "",
-                                    modifier = Modifier.size(50.dp)
+                                    modifier = Modifier.size(150.dp)
                                 )
                                 Text(text = health.title,fontWeight = FontWeight.Bold)
                             }
@@ -293,7 +293,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(protect.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -302,7 +302,7 @@ fun InformationScreen(navController: NavHostController) {
                                 Image(
                                     painter = painterResource(id = protect.image),
                                     contentDescription = "",
-                                    modifier = Modifier.size(50.dp)
+                                    modifier = Modifier.size(150.dp)
                                 )
                                 Text(text = protect.title,fontWeight = FontWeight.Bold)
                             }
@@ -323,7 +323,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(first.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -332,7 +332,7 @@ fun InformationScreen(navController: NavHostController) {
                                 Image(
                                     painter = painterResource(id = first.image),
                                     contentDescription = "",
-                                    modifier = Modifier.size(50.dp)
+                                    modifier = Modifier.size(150.dp)
                                 )
                                 Text(text = first.title,fontWeight = FontWeight.Bold)
                             }
@@ -353,7 +353,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(blood.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -370,6 +370,7 @@ fun InformationScreen(navController: NavHostController) {
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(text = "Hypertension", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+
                     LazyRow(
                         modifier = Modifier.padding(top = 10.dp),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -383,7 +384,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(hyper.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -417,7 +418,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(assess.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -447,7 +448,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(bloodsugar.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween
@@ -477,7 +478,7 @@ fun InformationScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(200.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(Color.White)
+                                    .background(diabet.backgroundColor)
                                     .padding(horizontal = 5.dp, vertical = 10.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.SpaceBetween

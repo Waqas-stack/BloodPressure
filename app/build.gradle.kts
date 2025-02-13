@@ -106,6 +106,7 @@ dependencies {
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("me.onebone:toolbar-compose:2.3.5")
 
 
 

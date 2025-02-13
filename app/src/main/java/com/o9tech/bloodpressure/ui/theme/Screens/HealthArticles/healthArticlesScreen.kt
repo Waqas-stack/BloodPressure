@@ -55,7 +55,7 @@ import com.o9tech.bloodpressure.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun HealthArticlesScreen(navController: NavHostController) {
 
@@ -95,7 +95,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                        horizontalArrangement = Arrangement.SpaceBetween,
                        verticalAlignment = Alignment.CenterVertically
                    ){
-                       Text(text = "Heart rate", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                       Text(text = "Health Articles", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                        TextButton(onClick = {
                            navController.navigate("InformationScreen")
                        }) {
@@ -182,7 +182,9 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                     .width(150.dp)
                                     .height(130.dp)
                                     .clip(RoundedCornerShape(10.dp)).background(Color.Black.copy(alpha = 0.7f))
-                                    .clickable { /* Handle click here */ }
+                                    .clickable {
+                                        navController.navigate("InformationScreen")
+                                    }
                             ) {
                                 // Background Image
                                 Image(
@@ -208,7 +210,8 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                     )
                                     Text(
                                         text = "6 Insights",
-                                        fontWeight = FontWeight.W400,
+//                                        fontWeight = FontWeight.W400,
+                                        fontSize = 12.sp,
                                         color = Color.White // Make this text visible too
                                     )
                                 }
@@ -247,7 +250,9 @@ fun HealthArticlesScreen(navController: NavHostController) {
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Text(text = "Recipes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                        TextButton(onClick = { /*TODO*/ }) {
+                        TextButton(onClick = {
+                            navController.navigate("RecipeCategory")
+                        }) {
                             Text(text = "More", fontWeight = FontWeight.W400, fontSize = 12.sp)
                         }
                     }
@@ -258,19 +263,21 @@ fun HealthArticlesScreen(navController: NavHostController) {
 
                     ) {
 
-                        val feature: List<RecipesDataModel> = RecipesDataModelDataset.SetHeartRate()
+                        val featurere: List<RecipesDataModel> = RecipesDataModelDataset.SetHeartRate()
 
 
-                        items(feature) { fetal ->
+                        items(featurere.size) { fetal ->
                             Box(
                                 modifier = Modifier
                                     .width(150.dp)
                                     .height(200.dp)
-                                    .clip(RoundedCornerShape(10.dp)).background(Color.Black.copy(alpha = 0.3f))
+                                    .clip(RoundedCornerShape(10.dp)).background(Color.Black.copy(alpha = 0.3f)).clickable {
+                                        navController.navigate("details/${featurere[fetal].id}")
+                                    }
                             ) {
                                 // Background Image
                                 Image(
-                                    painter = painterResource(id = fetal.image),
+                                    painter = painterResource(id = featurere[fetal].image),
                                     contentDescription = "Background Image",
                                     contentScale = ContentScale.Crop, // Ensures image covers the entire box
                                     modifier = Modifier.fillMaxSize()
@@ -287,7 +294,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                     Spacer(modifier = Modifier.height(10.dp)) // Optional spacing
 
                                     Text(
-                                        text = fetal.title,
+                                        text = featurere[fetal].title,
                                         fontWeight = FontWeight.Bold,
                                         color = Color.White, // Ensures the text is visible on the background
                                         fontSize = 18.sp

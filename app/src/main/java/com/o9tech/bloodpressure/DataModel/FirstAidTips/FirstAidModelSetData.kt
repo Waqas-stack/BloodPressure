@@ -1,5 +1,6 @@
 package com.o9tech.bloodpressure.DataModel.FirstAidTips
 
+import androidx.compose.ui.graphics.Color
 import com.o9tech.bloodpressure.R
 
 object FirstAidModelSetData {
@@ -8,29 +9,41 @@ object FirstAidModelSetData {
         firstAidModel.add(
             FirstAidModel(
                 1,
-                R.drawable.love,
-                "hypotensive crisis Guidelines"
+                R.drawable.firstaid,
+                "hypotensive crisis Guidelines",
+                Color(0xFF64B5F6)
             )
         )
         firstAidModel.add(
             FirstAidModel(
                 2,
-                R.drawable.love,
-                "hypotensive crisis Guidelines"
+                R.drawable.firstaid1,
+                "hypotensive crisis Guidelines",
+                Color(0xFFFFD54F)
             )
         )
         firstAidModel.add(
             FirstAidModel(
                 3,
-                R.drawable.love,
-                "First Aid Advice for Diabetes"
+                R.drawable.firstaid2,
+                "First Aid Advice for Diabetes",
+                Color(0xFFBA68C8)
             )
         )
         firstAidModel.add(
             FirstAidModel(
                 4,
-                R.drawable.love,
-                "Calm and racing Heart fast"
+                R.drawable.firstaid3,
+                "Calm and racing Heart fast",
+                Color(0xFFFF8A65)
+            )
+        )
+        firstAidModel.add(
+            FirstAidModel(
+                5,
+                R.drawable.firstaid4,
+                "Advice for Diabetes",
+                Color(0xFFBA68C8)
             )
         )
         return firstAidModel

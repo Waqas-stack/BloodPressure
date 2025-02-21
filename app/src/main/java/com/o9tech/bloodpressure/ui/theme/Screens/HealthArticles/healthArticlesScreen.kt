@@ -184,6 +184,10 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                     .clip(RoundedCornerShape(10.dp)).background(Color.Black.copy(alpha = 0.7f))
                                     .clickable {
                                         navController.navigate("InformationScreen")
+//                                        navController.navigate("camerapermission")
+//                                        navController.navigate("HeartRateMonitorScreen")
+//                                        navController.navigate("FingerScanScreen")
+//                                        navController.navigate("BloodPressureScreen")
                                     }
                             ) {
                                 // Background Image

@@ -8,7 +8,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,7 +42,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,7 +58,7 @@ import com.o9tech.bloodpressure.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun MeasureScreen() {
+fun MeasureScreen(navController: NavHostController) {
     val transition = rememberInfiniteTransition()
 
     // Vertical offset (up and down movement)
@@ -182,14 +180,15 @@ fun MeasureScreen() {
                    Box(
                        modifier = Modifier
                            .constrainAs(heart) {
-
                                top.linkTo(parent.top, margin = 160.dp)
                                start.linkTo(parent.start)
                                end.linkTo(parent.end)
                            }
                            .wrapContentSize() // Size of the heart box (make it large enough for the text to fit)
                            .offset(y = offsetY.dp) // Apply vertical motion
-                           .graphicsLayer(scaleX = scale, scaleY = scale) // Apply scaling
+                           .graphicsLayer(scaleX = scale, scaleY = scale).clickable {
+                               navController.navigate("HeartRateMonitorScreen")
+                           } // Apply scaling
                        , // Make background transparent
                        contentAlignment = Alignment.Center // Center the text inside the heart
                    ) {

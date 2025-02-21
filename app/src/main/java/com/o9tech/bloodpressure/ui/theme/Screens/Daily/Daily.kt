@@ -59,17 +59,26 @@ import com.o9tech.bloodpressure.ui.theme.lightgray
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun DailyScreen(navController: NavHostController) {
+
+    val (currentDate, currentDay) = remember { getCurrentDateAndDay() }
 
     Scaffold(
         topBar = {
@@ -99,12 +108,23 @@ fun DailyScreen(navController: NavHostController) {
                 },
 
                 title = {
-                    Text(
-                        text = "",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
+                        Row (
+//                            modifier = Modifier.padding(start = 18.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+//                            horizontalArrangement = Arrangement.Center
+                        ){
+                            Text(text = "$currentDate ,", fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(text = currentDay, fontSize = 20.sp,fontWeight = FontWeight.Bold)
+//
+                        }
+//                    Text(
+//                        text = "",
+//                        fontWeight = FontWeight.Bold,
+//                        fontSize = 18.sp,
+//                        modifier = Modifier.padding(start = 5.dp),
+//                    )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = lightgray
@@ -124,9 +144,7 @@ fun DailyScreen(navController: NavHostController) {
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                 ) {
-                    Text(text = "Dec 12", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
-                    Text(text = "Thursday", fontSize = 16.sp)
-                    Spacer(modifier = Modifier.height(16.dp))
+
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -220,7 +238,7 @@ fun DailyScreen(navController: NavHostController) {
                                         )
                                     }
                                 }
-                                Text(text = "pluse", fontSize = 14.sp)
+                                Text(text = "plus", fontSize = 14.sp)
                             }
                             Divider(
                                 modifier = Modifier
@@ -263,7 +281,9 @@ fun DailyScreen(navController: NavHostController) {
                                 contentColor = Color.White
                             ),
 //                            shape = RoundedCornerShape(6.dp),
-                            onClick = { /*TODO*/ }) {
+                            onClick = {
+                                navController.navigate("HeartRateMonitorScreen")
+                            }) {
 //                            Icon(imageVector = Icons.Default.Add, contentDescription = "")
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
@@ -286,23 +306,45 @@ fun DailyScreen(navController: NavHostController) {
                                 .height(200.dp)
                                 .clip(RoundedCornerShape(10.dp))
                                 .background(Color.White)
-                                .padding(horizontal = 14.dp, vertical = 14.dp),
+                                .clickable {
+
+                                }
+                                .padding(horizontal = 14.dp,vertical = 14.dp),
                             verticalArrangement = Arrangement.SpaceBetween,
 
                             ) {
-                            Text(
-                                text = "Blood\nPressure",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold
-                            )
+                            Column {
+                                Text(
+                                    text = "Blood Pressure",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = "103/75 mmHg",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
 
                             Image(
-                                painter = painterResource(id = R.drawable.love),
+                                painter = painterResource(id = R.drawable.bloodpressuremoniter),
                                 contentDescription = "",
                                 modifier = Modifier
-                                    .size(66.dp)
+                                    .size(76.dp)
                                     .align(Alignment.End)
+                                    .graphicsLayer(
+                                        rotationZ = -40f,
+                                        transformOrigin = TransformOrigin(1f, 0f)
+                                    )
                             )
+
+//                            Image(
+//                                painter = painterResource(id = R.drawable.bloodpressuremoniter),
+//                                contentDescription = "",
+//                                modifier = Modifier
+//                                    .size(66.dp)
+//                                    .align(Alignment.End)
+//                            )
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Column(
@@ -318,6 +360,9 @@ fun DailyScreen(navController: NavHostController) {
                                     .height(100.dp)
                                     .clip(RoundedCornerShape(10.dp))
                                     .background(color = Color.White)
+                                    .clickable {
+
+                                    }
                                     .padding(horizontal = 14.dp, vertical = 14.dp),
                             ) {
                                 Column(
@@ -333,10 +378,10 @@ fun DailyScreen(navController: NavHostController) {
                                         )
                                     }
                                     Image(
-                                        painter = painterResource(id = R.drawable.love),
+                                        painter = painterResource(id = R.drawable.glucosemeter),
                                         contentDescription = "",
                                         modifier = Modifier
-                                            .size(66.dp)
+                                            .size(76.dp)
                                             .align(Alignment.End)
                                     )
                                 }
@@ -348,25 +393,35 @@ fun DailyScreen(navController: NavHostController) {
                                     .height(100.dp)
                                     .clip(RoundedCornerShape(10.dp))
                                     .background(color = Color.White)
+                                    .clickable {
+                                        navController.navigate("weightScreen")
+                                    }
                                     .padding(horizontal = 14.dp, vertical = 14.dp),
                             ) {
                                 Column(
                                     modifier = Modifier.fillMaxSize()
                                 ) {
-                                    Row(
-//                                        modifier = Modifier.background(color = Color.Red)
-                                    ) {
-                                        Text(
-                                            text = "Weight & BMI",
-                                            fontSize = 16.sp,
-                                            fontWeight = FontWeight.W600
-                                        )
-                                    }
+//                                    Row(
+////                                        modifier = Modifier.background(color = Color.Red)
+//                                    ) {
+//
+//                                    }
+                                    Text(
+                                        text = "Weight & BMI",
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Text(
+                                        text = "178.57 LBS",
+                                        fontSize = 14.sp,
+                                        color = Color.Gray,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
                                     Image(
-                                        painter = painterResource(id = R.drawable.love),
+                                        painter = painterResource(id = R.drawable.bathroomscale),
                                         contentDescription = "",
                                         modifier = Modifier
-                                            .size(66.dp)
+                                            .size(86.dp)
                                             .align(Alignment.End)
                                     )
                                 }
@@ -407,7 +462,7 @@ fun DailyScreen(navController: NavHostController) {
                             }
                         }
                         Image(
-                            painter = painterResource(id = R.drawable.love),
+                            painter = painterResource(id = R.drawable.nutritionist),
                             contentDescription = "consultent"
                         )
                     }
@@ -432,6 +487,9 @@ fun DailyScreen(navController: NavHostController) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
                             .background(color = Color.White)
+                            .clickable {
+                                navController.navigate("weightScreen")
+                            }
                             .padding(horizontal = 14.dp, vertical = 14.dp),
                     ) {
                         Row(
@@ -512,6 +570,9 @@ fun DailyScreen(navController: NavHostController) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
                             .background(color = Color.White)
+                            .clickable {
+
+                            }
                             .padding(horizontal = 14.dp, vertical = 14.dp),
                     ) {
                         Row(
@@ -600,6 +661,13 @@ fun DailyScreen(navController: NavHostController) {
 
 
 
+fun getCurrentDateAndDay(): Pair<String, String> {
+    val today = LocalDate.now()
+    val formatter = DateTimeFormatter.ofPattern("MMM dd")
+    val date = today.format(formatter)
+    val day = today.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()) // Full day name
+    return Pair(date, day)
+}
 
 
 

@@ -26,7 +26,7 @@ import com.o9tech.bloodpressure.ui.theme.Screens.Daily.DailyScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.HealthArticles.HealthArticlesScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Measure.MeasureScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Profile.ProfileScreen
-import com.o9tech.bloodpressure.ui.theme.Screens.Tracker.TrackerScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.Tracker.TrackerCategoryScreen
 import com.o9tech.bloodpressure.ui.theme.appwhit
 
 
@@ -85,8 +85,9 @@ fun ContentScree(
 ){
     when(selectedindex){
         0 -> DailyScreen(navController)
-        1 -> MeasureScreen()
-        2 -> TrackerScreen()
+        1 -> MeasureScreen(navController)
+//        2 -> TrackerScreen()
+        2 -> TrackerCategoryScreen(navController)
 //        3 -> InformationScreen(navController)
         3 -> HealthArticlesScreen(navController)
         4 -> ProfileScreen(navController)

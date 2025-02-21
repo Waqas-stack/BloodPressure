@@ -15,11 +15,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.android.gms.ads.MobileAds
 import com.o9tech.bloodpressure.ui.theme.BloodPressureTheme
 import com.o9tech.bloodpressure.ui.theme.Screens.CameraUp.CameraViewModel
 import com.o9tech.bloodpressure.ui.theme.Screens.DailySettings.DailySettingsSceen
 import com.o9tech.bloodpressure.ui.theme.Screens.FAQ.FaqScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.GernalSettings.GernalScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.HeartRateMeasurment.HeartRateMonitorScreen
+//import com.o9tech.bloodpressure.ui.theme.Screens.HealthArticleDetail.camerapermission
 import com.o9tech.bloodpressure.ui.theme.Screens.Information.InformationScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Language.LanguagesScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.MainScreen.MainScreen
@@ -28,15 +31,18 @@ import com.o9tech.bloodpressure.ui.theme.Screens.RecipesDetails.DetailssScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.RecipesDetails.DetailssssScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.Remminder.ReminderScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.TargetRange.TargetRangeScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.Tracker.TrackerScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.UnitSettings.UnintSettingsScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.bettersleep.BetterSleepScreen
 import com.o9tech.bloodpressure.ui.theme.Screens.camera.BloodPressureViewModel
 import com.o9tech.bloodpressure.ui.theme.Screens.healthArticlsdetail.RecipeCategory
+import com.o9tech.bloodpressure.ui.theme.Screens.newRecord.NewRecordScreen
+import com.o9tech.bloodpressure.ui.theme.Screens.weight.weightScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class   MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +59,9 @@ class   MainActivity : ComponentActivity() {
 ////            requestPermissions(CameraX_Permission, 0)
 //            ActivityCompat.requestPermissions(this, CameraX_Permission, 0)
 //        }
+        MobileAds.initialize(this)
         setContent {
-            val homeViewModel: BloodPressureViewModel = viewModel()
+            val bloodPressureViewModel: BloodPressureViewModel = viewModel()
             val cameraViewModel: CameraViewModel = viewModel()
             val scope = rememberCoroutineScope()
             val navController = rememberNavController()
@@ -98,7 +105,7 @@ class   MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("articleId") { type = NavType.IntType })
                     ) { backStackEntry ->
                         val articleId = backStackEntry.arguments?.getInt("articleId") ?: 0
-                        DetailsScreen(navController,articleId)
+                        DetailsScreen(navController, articleId)
                     }
                     composable("RecipeCategory") {
                         RecipeCategory(navController)
@@ -108,12 +115,36 @@ class   MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("itemId") { type = NavType.IntType })
                     ) { backStackEntry ->
                         val itemId = backStackEntry.arguments?.getInt("itemId") ?: 0
-                        DetailssScreen(itemId,navController)
+                        DetailssScreen(itemId, navController)
                     }
                     composable("DetailssssScreen") {
                         DetailssssScreen()
                     }
+//                    composable("camerapermission") {
+//                        camerapermission()
+//                    }
+                    composable("HeartRateMonitorScreen") {
+                        HeartRateMonitorScreen()
+                    }
+                    composable("weightScreen") {
+                        weightScreen()
+                    }
+                    composable("TrackerScreen") {
+                        TrackerScreen(navController)
+                    }
+                    composable("NewRecordScreen") {
+                        NewRecordScreen()
+                    }
+//                    composable("TrackerCategoryScreen") {
+//                        TrackerCategoryScreen()
+//                    }
+
+//                    composable("BloodPressureScreen") {
+//                        BloodPressureScreen(bloodPressureViewModel)
+//                    }
                 }
+
+
 //                val scaffoldState = rememberBottomSheetScaffoldState()
 //                val controller = remember {
 //                    LifecycleCameraController(applicationContext).apply {
@@ -194,7 +225,7 @@ class   MainActivity : ComponentActivity() {
 //                        }
 //                    }
 
-                }
+            }
 //                NavHost(navController = navController, startDestination = "InformationScreen") {
 //                    composable("ProfileScreen") {
 //                        InformationScreen(navController)
@@ -225,10 +256,10 @@ class   MainActivity : ComponentActivity() {
 //                DetailsScreen()
 //                TargetRangeScreen()
 //                FaqScreen()
-            }
-
         }
+
     }
+}
 
 //    private fun TakePhoto(
 //        controller: LifecycleCameraController,

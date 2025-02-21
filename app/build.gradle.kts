@@ -81,10 +81,11 @@ dependencies {
     implementation ("com.github.MahmoudIbrahim3:android-compose-charts:1.2.2")
 
     //camera
-//    implementation("androidx.camera:camera-camera2:1.2.3")
-//    implementation("androidx.camera:camera-lifecycle:1.2.3")
-//    implementation("androidx.camera:camera-view:1.3.0-beta01")
-//    implementation("androidx.camera:camera-core:${camerax_version}")
+//    implementation("androidx.camera:camera-camera2:1.4.1")
+//    implementation("androidx.camera:camera-lifecycle:1.4.1")
+//    implementation("androidx.camera:camera-view:1.4.1")
+////    implementation("androidx.camera:camera-core:${camerax_version}")
+//    implementation("androidx.camera:camera-core:1.4.1")
 
 
     val camerax_version = "1.5.0-alpha04"
@@ -109,5 +110,22 @@ dependencies {
     implementation("me.onebone:toolbar-compose:2.3.5")
 
 
+    implementation ("com.github.kibotu:Heart-Rate-Ometer:-SNAPSHOT")
+
+    implementation ("io.reactivex.rxjava2:rxjava:2.2.21")
+    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
+//
+//    implementation ("io.reactivex.rxjava3:rxjava:3.1.5'")
+//    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("com.android.support:support-compat:27.0.2")
+
+    //addmob
+    implementation("com.google.android.gms:play-services-ads:23.6.0")
+
+
 
 }
+
+
+
+

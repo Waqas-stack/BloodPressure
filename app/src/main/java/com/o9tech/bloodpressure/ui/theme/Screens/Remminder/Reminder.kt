@@ -121,7 +121,10 @@ fun ReminderScreen(navController: NavHostController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(text = "Heart rate", fontSize = 14.sp, fontWeight = FontWeight.W600)
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add")
+                        Icon(imageVector = Icons.Default.Add,
+                            contentDescription = "add",
+                            tint = Color.Red
+                        )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
 
@@ -158,7 +161,10 @@ fun ReminderScreen(navController: NavHostController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(text = "Blood pressure", fontSize = 14.sp, fontWeight = FontWeight.W600)
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add")
+                        Icon(imageVector = Icons.Default.Add,
+                            contentDescription = "add",
+                            tint = Color.Red
+                        )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
 
@@ -194,8 +200,13 @@ fun ReminderScreen(navController: NavHostController) {
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        Text(text = "Blood Sugar", fontSize = 14.sp, fontWeight = FontWeight.W600)
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add")
+                        Text(text = "Blood Sugar",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.W600)
+                        Icon(imageVector = Icons.Default.Add,
+                            contentDescription = "add",
+                            tint = Color.Red
+                        )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
 
@@ -232,7 +243,10 @@ fun ReminderScreen(navController: NavHostController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(text = "Weight & BMI", fontSize = 14.sp, fontWeight = FontWeight.W600)
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add")
+                        Icon(imageVector = Icons.Default.Add,
+                            contentDescription = "add",
+                            tint = Color.Red
+                        )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
 

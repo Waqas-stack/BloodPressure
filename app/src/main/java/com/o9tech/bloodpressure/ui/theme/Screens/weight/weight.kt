@@ -67,7 +67,7 @@ fun weightScreen(){
         LineChartEntity(0.0f, "Sun"),
         LineChartEntity(50.0f, "Mon"),
         LineChartEntity(60.0f, "Tue"),
-        LineChartEntity(70.0f, "Wed"),
+        LineChartEntity(70.0f, "wed"),
         LineChartEntity(80.0f, "Thu"),
         LineChartEntity(30.0f, "Fri"),
         LineChartEntity(10.0f, "Sat"),
@@ -124,7 +124,8 @@ fun weightScreen(){
                 Box(modifier = Modifier.fillMaxSize()){
                     Column(
                         modifier = Modifier
-                            .fillMaxSize().verticalScroll(rememberScrollState())
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
                             .background(color = lightgray)
                     ) {
                         Card (
@@ -265,9 +266,12 @@ fun weightScreen(){
 //                        IconButton(onClick = { /*TODO*/ }) {
 //                            Icon(imageVector = Icons.Default.Add, contentDescription = "add")
 //                        }
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "add")
+                        Icon(painter = painterResource(id = R.drawable.fingerscanner),
+                            contentDescription = "add",
+                            modifier = Modifier.size(24.dp)
+                            )
                         Text(
-                            text = "Track Now",
+                            text = "Measure Now",
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )

@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -107,8 +109,7 @@ fun DetailssssScreen() {
         state = state,
 
 
-//        scrollStrategy = ScrollStrategy.EnterAlways,
-        scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
+        scrollStrategy = ScrollStrategy.EnterAlways,
         toolbar = {
             val textsize = (18 + (30 - 12) * state.toolbarState.progress).sp
             Box(
@@ -126,19 +127,48 @@ fun DetailssssScreen() {
                 alpha = if (textsize.value == 18f) 0f else 1f,
             )
             Text(
-
                 text = "Recipe Name",
                 style = TextStyle(color = Color.White, fontSize = textsize),
-                modifier = Modifier.padding(10.dp).road(whenCollapsed = Alignment.TopStart, whenExpanded = Alignment.BottomStart)
+                modifier = Modifier
+                    .padding(10.dp)
+                    .road(whenCollapsed = Alignment.TopStart, whenExpanded = Alignment.BottomStart)
             )
 
+            IconButton(onClick = {}, modifier = Modifier.padding(vertical = 20.dp)) {
+                Icon(imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "arrowback",
+                    tint = Color.White,
+                    modifier = Modifier.size(50.dp)
+                    )
+            }
         }) {
 
         LazyColumn(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp)
         ) {
-            items(100) {
-                Text(text = "Item $it")
+            items(8) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color.White
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 3.dp
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(10.dp)
+                    ) {
+                        Text(text = "Item $it", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Text(text = "Item this is the card of the recipe details screen and workinf on this and reuild its project ")
+                    }
+
+                }
+
             }
         }
     }

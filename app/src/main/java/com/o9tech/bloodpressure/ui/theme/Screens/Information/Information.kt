@@ -165,7 +165,7 @@ fun InformationScreen(navController: NavHostController) {
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
                             .background(Color.White).clickable {
-//                                navController.navigate("FaqScreen")
+                                navController.navigate("FaqScreen")
                             }
                             .padding(14.dp),
                         verticalAlignment = Alignment.CenterVertically,

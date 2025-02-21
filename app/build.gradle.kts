@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.o9tech.bloodpressure"
+    namespace = "com.o9tech.heartratemonitor"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.o9tech.bloodpressure"
+        applicationId = "com.o9tech.heartratemonitor"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

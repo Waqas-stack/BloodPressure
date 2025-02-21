@@ -17,7 +17,7 @@
 
     <application
         android:allowBackup="true"
-        android:name=".ui.theme.Screens.Myapp"
+        android:name="com.o9tech.heartratemonitor.ui.theme.Screens.Myapp"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -27,7 +27,7 @@
         android:theme="@style/Theme.BloodPressure"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.o9tech.heartratemonitor.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.BloodPressure">
@@ -39,7 +39,7 @@
         </activity>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-5065264690609103~2109254639"/>
     </application>
 
 </manifest>

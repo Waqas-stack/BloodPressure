@@ -54,11 +54,24 @@ import com.o9tech.heartratemonitor.R
 import com.o9tech.heartratemonitor.ui.theme.appbg
 import com.o9tech.heartratemonitor.ui.theme.appwhit
 import com.o9tech.heartratemonitor.ui.theme.lightgray
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun MeasureScreen(navController: NavHostController) {
+    val currentDateTime = remember {
+        LocalDateTime.now()
+    }
+
+    val formattedDate = remember {
+        currentDateTime.format(DateTimeFormatter.ofPattern("yyyy, MMM dd"))
+    }
+
+    val formattedTime = remember {
+        currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+    }
     val transition = rememberInfiniteTransition()
 
     // Vertical offset (up and down movement)
@@ -90,42 +103,42 @@ fun MeasureScreen(navController: NavHostController) {
     )
 
     Scaffold (
-        topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-
-                title = {
-                    Text(
-                        text = "Measure",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp,
-                        color = appwhit,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                actions = {
-                    Row {
-                        Icon(
-                            painter = painterResource(id = R.drawable.volume),
-                            contentDescription = "volume",
-                    tint = appwhit,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(18.dp))
-                        Icon(
-                            painter = painterResource(id = R.drawable.flash),
-                            contentDescription = "volume",
-                            modifier = Modifier.size(24.dp),
-                    tint = appwhit
-                        )
-
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = appbg
-                ),
-            )
-        },
+//        topBar = {
+//            TopAppBar(
+//                modifier = Modifier.padding(horizontal = 6.dp),
+//
+//                title = {
+//                    Text(
+//                        text = "Measure",
+//                        fontWeight = FontWeight.Bold,
+//                        fontSize = 22.sp,
+//                        color = appwhit,
+//                        modifier = Modifier.padding(start = 5.dp),
+//                    )
+//                },
+//                actions = {
+//                    Row {
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.volume),
+//                            contentDescription = "volume",
+//                    tint = appwhit,
+//                            modifier = Modifier.size(24.dp)
+//                        )
+//                        Spacer(modifier = Modifier.width(18.dp))
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.flash),
+//                            contentDescription = "volume",
+//                            modifier = Modifier.size(24.dp),
+//                    tint = appwhit
+//                        )
+//
+//                    }
+//                },
+//                colors = TopAppBarDefaults.topAppBarColors(
+//                    containerColor = appbg
+//                ),
+//            )
+//        },
 //        bottomBar = {
 //            BottomBar()
 //        },
@@ -136,6 +149,7 @@ fun MeasureScreen(navController: NavHostController) {
                modifier = Modifier
                    .fillMaxSize(),
            ){
+
                ConstraintLayout(
                    modifier = Modifier.fillMaxSize().padding(paddingValues),
                ) {
@@ -196,7 +210,7 @@ fun MeasureScreen(navController: NavHostController) {
                        Image(
                            painter = painterResource(id = R.drawable.love), // Your heart PNG resource
                            contentDescription = "Heart Icon",
-                           modifier = Modifier.wrapContentSize()// Fill the box with the heart
+                           modifier = Modifier.size(150.dp)// Fill the box with the heart
                        )
 
                        // Column with two text elements in the center
@@ -205,14 +219,14 @@ fun MeasureScreen(navController: NavHostController) {
                                .height(100.dp)
                                .align(Alignment.Center)
                                // Center the text inside the heart
-                               .padding(0.dp), // Optional padding for spacing
+                               .padding(vertical = 15.dp), // Optional padding for spacing
 //                        horizontalAlignment = Alignment.CenterHorizontally // Center text horizontally
                        ) {
                            // First Text in the Column
                            Text(
                                text = "START",
                                color = Color.White,
-                               fontSize = 30.sp,
+                               fontSize = 22.sp,
                                fontWeight = FontWeight.ExtraBold,
                                modifier = Modifier.align(Alignment.CenterHorizontally) // Center the first text
                            )
@@ -234,7 +248,7 @@ fun MeasureScreen(navController: NavHostController) {
                            .fillMaxWidth()
                            .padding(20.dp)
                            .constrainAs(detail) {
-                               top.linkTo(heart.bottom, margin = 100.dp)
+                               top.linkTo(heart.bottom, margin = 80.dp)
                                start.linkTo(parent.start)
                                end.linkTo(parent.end)
                            }
@@ -285,8 +299,10 @@ fun MeasureScreen(navController: NavHostController) {
 //                        modifier = Modifier.background(color = Color.Green),
                                horizontalAlignment = Alignment.End
                            ){
-                               Text(text = "2024,Dec 5",color = lightgray)
-                               Text(text = "0:19",color = lightgray)
+//                               Text(text = "2024,Dec 5",color = lightgray)
+                               Text(text = formattedDate,color = lightgray)
+//                               Text(text = "0:19",color = lightgray)
+                               Text(text = formattedTime,color = lightgray)
                            }
                        }
                    }

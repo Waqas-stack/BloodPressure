@@ -9,7 +9,7 @@ object DiabetesSetData {
         diabetesData.add(
             DiabetesDataModel(
                 1,
-                R.drawable.love,
+                R.drawable.hearrate4,
                 "Diabetes Tests & Diagnosis",
                 Color(0xFF64B5F6)
             )
@@ -17,7 +17,7 @@ object DiabetesSetData {
         diabetesData.add(
             DiabetesDataModel(
                 2,
-                R.drawable.love,
+                R.drawable.firstaid2,
                 "What is Diabetes",
                         Color(0xFFFF8A65)
             )
@@ -25,7 +25,7 @@ object DiabetesSetData {
         diabetesData.add(
             DiabetesDataModel(
                 3,
-                R.drawable.love,
+                R.drawable.heartdiese3,
                 "Type I & Type II Diabetes",
                 Color(0xFFBA68C8)
             )
@@ -33,7 +33,7 @@ object DiabetesSetData {
         diabetesData.add(
             DiabetesDataModel(
                 4,
-                R.drawable.love,
+                R.drawable.hearrate2,
                 "Diabetes symptoms",
                 Color(0xFFFFD54F)
             )
@@ -41,7 +41,7 @@ object DiabetesSetData {
         diabetesData.add(
             DiabetesDataModel(
                 5,
-                R.drawable.love,
+                R.drawable.bloodpressuremoniter,
                 "How to treat Diabetes",
                 Color(0xFF81C784)
             )
@@ -49,7 +49,7 @@ object DiabetesSetData {
         diabetesData.add(
             DiabetesDataModel(
                 6,
-                R.drawable.love,
+                R.drawable.heartdiese3,
                 "Methods to prevent Diabetes",
                 Color(0xFFE57373)
             )

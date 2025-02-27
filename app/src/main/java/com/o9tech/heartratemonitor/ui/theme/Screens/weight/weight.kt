@@ -32,22 +32,29 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavHostController
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.google.android.gms.ads.AdSize
 import com.mahmoud.composecharts.linechart.LineChartEntity
 import com.o9tech.heartratemonitor.R
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.btnbg
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
@@ -57,7 +64,7 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun weightScreen(){
+fun weightScreen(navController: NavHostController) {
 
     val lineChartData = listOf(
         LineChartEntity(0.0f, "Sun"),
@@ -69,47 +76,54 @@ fun weightScreen(){
         LineChartEntity(10.0f, "Sat"),
     )
     val verticalAxisValues = listOf(50.0f, 60.0f, 70.0f, 80.0f)
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold (
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-                navigationIcon = {
+            Column {
+                TopAppBar(
+                    modifier = Modifier.padding(horizontal = 6.dp),
+                    navigationIcon = {
 
-                    IconButton(onClick = {
-//                        navController.popBackStack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "ArrowBack",
-                            modifier = Modifier.padding(start = 10.dp),
-                        )
-                    }
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 10.dp),
+                            )
+                        }
 
-                },
-                actions = {
-                    TextButton(onClick = { /*TODO*/ }) {
+                    },
+                    actions = {
+                        TextButton(onClick = { /*TODO*/ }) {
+                            Text(
+                                text = "View all",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 14.sp,
+                                color = Color.Gray,
+                                modifier = Modifier.padding(end = 10.dp),
+                            )
+                        }
+                    },
+
+                    title = {
                         Text(
-                            text = "View all",
+                            text = "weight",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
-                            color = Color.Gray,
-                            modifier = Modifier.padding(end = 10.dp),
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(start = 5.dp),
                         )
-                    }
-                },
-
-                title = {
-                    Text(
-                        text = "weight",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = lightgray
+                    ),
+                )
+                if (isInternetAvailable.value) {
+                BannersAds(modifier = Modifier.fillMaxWidth().background(lightgray), adSize =  AdSize.BANNER)}
+                Spacer(modifier = Modifier.height(10.dp))
+            }
         },
         content = {
             Surface(
@@ -124,6 +138,7 @@ fun weightScreen(){
                             .verticalScroll(rememberScrollState())
                             .background(color = lightgray)
                     ) {
+
                         Card (
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -256,7 +271,9 @@ fun weightScreen(){
                             contentColor = Color.White
                         ),
 //                            shape = RoundedCornerShape(6.dp),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {
+                            navController.navigate("HeartRateMonitorScreen")
+                        }) {
 //                            Icon(imageVector = Icons.Default.Add, contentDescription = "")
                         Spacer(modifier = Modifier.width(8.dp))
 //                        IconButton(onClick = { /*TODO*/ }) {

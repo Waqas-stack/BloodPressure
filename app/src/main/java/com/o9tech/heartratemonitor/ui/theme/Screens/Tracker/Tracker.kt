@@ -50,6 +50,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -70,6 +71,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.Screens.weight.LineChartComposable
 
 
@@ -83,75 +87,85 @@ fun TrackerScreen(navController: NavHostController) {
     val pagerState = rememberPagerState {
         tabTitles.size
     }
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
+
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(horizontal = 8.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.love),
-                            contentDescription = "Tracker Icon",
-                            tint = Color.Red,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Heart Rate",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp,
-                        )
-                    }
-                },
-                navigationIcon = {
-
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "ArrowBack",
-                            modifier = Modifier.padding(start = 10.dp),
-                        )
-                    }
-
-                },
-                actions = {
-                    Surface(
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(appwhit),
-                        color = Color.Transparent
-                    ) {
+            Column {
+                TopAppBar(
+                    title = {
                         Row(
-                            modifier = Modifier
-                                .padding(horizontal = 18.dp, vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 8.dp)
                         ) {
                             Icon(
-                                painter = painterResource(id = R.drawable.flash),
-                                contentDescription = "Custom Action",
-                                tint = Color.Black,
-                                modifier = Modifier.size(16.dp)
+                                painter = painterResource(id = R.drawable.love),
+                                contentDescription = "Tracker Icon",
+                                tint = Color.Red,
+                                modifier = Modifier.size(24.dp)
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "All(12)",
-                                fontSize = 14.sp,
+                                text = "Heart Rate",
                                 fontWeight = FontWeight.Bold,
-                                color = Color.Black
+                                fontSize = 24.sp,
                             )
                         }
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
+                    },
+                    navigationIcon = {
+
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 10.dp),
+                            )
+                        }
+
+                    },
+                    actions = {
+                        Surface(
+                            modifier = Modifier
+                                .padding(horizontal = 8.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(appwhit),
+                            color = Color.Transparent
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = 18.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.flash),
+                                    contentDescription = "Custom Action",
+                                    tint = Color.Black,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "All(12)",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black
+                                )
+                            }
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = lightgray
+                    ),
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                if (isInternetAvailable.value) {
+                    BannersAds(Modifier.fillMaxWidth())
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+            }
         },
         content = { paddingValues ->
             Surface(

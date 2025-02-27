@@ -196,9 +196,15 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 import androidx.compose.foundation.rememberScrollState
 
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataModel
 import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataSet
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 
 
 //@Preview(showBackground = true)
@@ -512,34 +518,40 @@ import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataSe
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BetterSleepScreen(navController: NavHostController) {
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-                title = {
-                    Text(
-                        text = "Better Sleep",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                        // Handle back navigation
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "ArrowBack",
-                            modifier = Modifier.padding(start = 10.dp),
+            Column {
+                TopAppBar(
+                    modifier = Modifier.padding(horizontal = 6.dp),
+                    title = {
+                        Text(
+                            text = "Better Sleep",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(start = 5.dp),
                         )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                            // Handle back navigation
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 10.dp),
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = lightgray
+                    ),
+                )
+                if (isInternetAvailable.value) {
+                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)}
+            }
         },
         content = { paddingValues ->
             Column(
@@ -549,6 +561,8 @@ fun BetterSleepScreen(navController: NavHostController) {
                     .verticalScroll(rememberScrollState()),  // Make the entire screen scrollable
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
+
+//                Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "Meditation",
                     fontWeight = FontWeight.Bold,

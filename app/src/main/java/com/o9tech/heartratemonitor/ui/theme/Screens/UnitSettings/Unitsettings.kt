@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,6 +38,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
@@ -92,7 +95,8 @@ fun UnintSettingsScreen(navController: NavHostController) {
                         .fillMaxSize()
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                 ){
-
+                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+                    Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "weight",
                         fontSize = 18.sp,

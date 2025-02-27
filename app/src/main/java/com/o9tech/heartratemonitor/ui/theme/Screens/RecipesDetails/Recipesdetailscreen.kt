@@ -99,7 +99,7 @@ fun DetailssScreen(itemId: Int, navController: NavHostController) {
 
 @Preview(showBackground = true)
 @Composable
-fun DetailssssScreen() {
+fun DetailssssScreen(navController: NavHostController) {
 
     val state = rememberCollapsingToolbarScaffoldState()
 
@@ -134,7 +134,9 @@ fun DetailssssScreen() {
                     .road(whenCollapsed = Alignment.TopStart, whenExpanded = Alignment.BottomStart)
             )
 
-            IconButton(onClick = {}, modifier = Modifier.padding(vertical = 20.dp)) {
+            IconButton(onClick = {
+                                 navController.popBackStack()
+            }, modifier = Modifier.padding(vertical = 20.dp)) {
                 Icon(imageVector = Icons.Default.ArrowBack,
                     contentDescription = "arrowback",
                     tint = Color.White,

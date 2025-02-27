@@ -9,7 +9,7 @@ object BloodPressureSetData {
         bloodPressureList.add(
             BloodPressureDataModel(
                 1,
-                R.drawable.love,
+                R.drawable.bp1,
                 "Blood Pressure Measurement Mistakes",
                 Color(0xFF64B5F6)
             )
@@ -17,7 +17,7 @@ object BloodPressureSetData {
         bloodPressureList.add(
             BloodPressureDataModel(
                 2,
-                R.drawable.love,
+                R.drawable.bp2,
                 "Blood Pressure Misbelief",
                 Color(0xFFFFD54F)
             )
@@ -25,7 +25,7 @@ object BloodPressureSetData {
         bloodPressureList.add(
             BloodPressureDataModel(
                 3,
-                R.drawable.love,
+                R.drawable.heartdiese1,
                 "Home Blood pressure measurement",
                 Color(0xFFBA68C8)
             )
@@ -33,7 +33,7 @@ object BloodPressureSetData {
         bloodPressureList.add(
             BloodPressureDataModel(
                 4,
-                R.drawable.love,
+                R.drawable.heartdiese2,
                 "hypotension Diagnosis & Treatment",
                 Color(0xFFFF8A65)
             )
@@ -41,7 +41,7 @@ object BloodPressureSetData {
         bloodPressureList.add(
             BloodPressureDataModel(
                 5,
-                R.drawable.love,
+                R.drawable.heartdiese3,
                 "know about hypotension",
                 Color(0xFF64B5F6)
             )

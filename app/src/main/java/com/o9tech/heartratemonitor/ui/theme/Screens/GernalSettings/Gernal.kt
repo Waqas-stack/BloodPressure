@@ -33,11 +33,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
@@ -48,6 +52,10 @@ fun GernalScreen(navController: NavHostController) {
     val isChecked = remember { mutableStateOf(false) }
     val isCheckedtwo = remember { mutableStateOf(false) }
     val isCheckedthree = remember { mutableStateOf(false) }
+
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
+
 
     Scaffold(
         topBar = {
@@ -90,6 +98,10 @@ fun GernalScreen(navController: NavHostController) {
                         .padding(horizontal = 16.dp, vertical = 16.dp)
 
                 ) {
+                    if (isInternetAvailable.value) {
+                        BannersAds(modifier = Modifier.fillMaxWidth(), adSize = AdSize.BANNER)
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
                     Text(text = "Heart Rate")
                     Spacer(modifier = Modifier.size(10.dp))
                     Row(
@@ -183,7 +195,7 @@ fun GernalScreen(navController: NavHostController) {
                     Spacer(modifier = Modifier.size(24.dp))
                     Text(text = "First Day of week", fontSize = 16.sp)
                     Spacer(modifier = Modifier.height(4.dp))
-                    Row (
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
@@ -192,14 +204,17 @@ fun GernalScreen(navController: NavHostController) {
                             .padding(14.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
-                    ){
-                        Text(text = "Monday", fontSize = 14.sp,fontWeight = FontWeight.Bold)
-                        Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = "")
+                    ) {
+                        Text(text = "Monday", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowRight,
+                            contentDescription = ""
+                        )
                     }
                     Spacer(modifier = Modifier.size(24.dp))
                     Text(text = "First Day of week", fontSize = 16.sp)
                     Spacer(modifier = Modifier.size(4.dp))
-                    Row (
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
@@ -207,8 +222,8 @@ fun GernalScreen(navController: NavHostController) {
                             .padding(14.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
-                    ){
-                        Text(text = "Dark Mood", fontSize = 14.sp,fontWeight = FontWeight.Bold)
+                    ) {
+                        Text(text = "Dark Mood", fontSize = 14.sp, fontWeight = FontWeight.Bold)
                         Switch(
                             modifier = Modifier,
                             checked = isCheckedthree.value,
@@ -216,7 +231,8 @@ fun GernalScreen(navController: NavHostController) {
 
                             ),
                             onCheckedChange = { isCheckedthree.value = it }
-                        )}
+                        )
+                    }
                 }
             }
         }

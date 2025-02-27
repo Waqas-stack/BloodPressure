@@ -9,7 +9,7 @@ object HypertensionSetData {
         hypertensionList.add(
             HypertensionModel(
                 1,
-                R.drawable.love,
+                R.drawable.hearrate2,
                 "What causes Hypertension",
                 Color(0xFF64B5F6)
             )
@@ -17,7 +17,7 @@ object HypertensionSetData {
         hypertensionList.add(
             HypertensionModel(
                 2,
-                R.drawable.love,
+                R.drawable.hearrate4,
                 "Hypertension Danger",
                 Color(0xFFFF8A65)
             )
@@ -25,7 +25,7 @@ object HypertensionSetData {
         hypertensionList.add(
             HypertensionModel(
                 3,
-                R.drawable.love,
+                R.drawable.heartdiese,
                 "Hypertension types and symptoms",
                 Color(0xFFFFD54F)
             )
@@ -33,7 +33,7 @@ object HypertensionSetData {
         hypertensionList.add(
             HypertensionModel(
                 4,
-                R.drawable.love,
+                R.drawable.heartdiese3,
                 "Blood Pressure Number",
                 Color(0xFFE57373)
             )
@@ -41,7 +41,7 @@ object HypertensionSetData {
         hypertensionList.add(
             HypertensionModel(
                 5,
-                R.drawable.love,
+                R.drawable.bp1,
                 "First medication for Hypertension",
                 Color(0xFF81C784)
             )
@@ -49,7 +49,7 @@ object HypertensionSetData {
         hypertensionList.add(
             HypertensionModel(
                 6,
-                R.drawable.love,
+                R.drawable.bp2,
                 "Blood pressure Misbelief",
                 Color(0xFF64B5F6)
             )

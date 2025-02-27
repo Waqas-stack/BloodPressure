@@ -41,11 +41,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
@@ -54,45 +58,51 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @Composable
 fun TargetRangeScreen(navController: NavHostController) {
     var isExpandedAfterExercize by remember { mutableStateOf(false) }
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "ArrowBack",
-                            modifier = Modifier.padding(start = 10.dp),
+            Column {
+                TopAppBar(
+                    modifier = Modifier.padding(horizontal = 6.dp),
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 10.dp),
+                            )
+                        }
+
+
+                    },
+
+                    title = {
+                        Text(
+                            text = "Edit Target Range",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(start = 5.dp),
                         )
-                    }
-
-
-                },
-
-                title = {
-                    Text(
-                        text = "Edit Target Range",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = "ArrowBack",
-                            modifier = Modifier.padding(start = 0.dp),
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
+                    },
+                    actions = {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                imageVector = Icons.Default.Info,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 0.dp),
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = lightgray
+                    ),
+                )
+                if (isInternetAvailable.value) {
+                    BannersAds(modifier = Modifier.fillMaxWidth().background(lightgray), adSize =  AdSize.BANNER)}
+            }
         },
         content = { paddingValues ->
             Surface(
@@ -107,6 +117,8 @@ fun TargetRangeScreen(navController: NavHostController) {
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                 ) {
+
+                    Spacer(modifier = Modifier.height(10.dp))
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -406,7 +418,9 @@ fun TargetRangeScreen(navController: NavHostController) {
                                 Icon(
                                     imageVector = Icons.Default.Edit,
                                     contentDescription = "ArrowBack",
-                                    modifier = Modifier.size(24.dp).padding(start = 0.dp),
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .padding(start = 0.dp),
                                 )
                             }
                             Icon(

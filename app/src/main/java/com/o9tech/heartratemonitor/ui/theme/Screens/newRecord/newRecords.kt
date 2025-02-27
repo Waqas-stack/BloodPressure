@@ -31,20 +31,31 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun NewRecordScreen() {
+fun NewRecordScreen(navController: NavHostController) {
+
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,7 +63,7 @@ fun NewRecordScreen() {
                 navigationIcon = {
 
                     IconButton(onClick = {
-//                        navController.popBackStack()
+                   navController.popBackStack()
                     }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -101,6 +112,9 @@ fun NewRecordScreen() {
                         .fillMaxSize()
                         .padding(10.dp),
                 ) {
+                    if (isInternetAvailable.value) {
+                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)}
+                    Spacer(modifier = Modifier.height(10.dp))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth(),

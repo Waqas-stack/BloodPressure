@@ -1,5 +1,6 @@
 package com.o9tech.heartratemonitor.ui.theme.Screens.Daily
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -58,6 +59,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -75,263 +77,207 @@ fun DailyScreen(navController: NavHostController) {
 
     val (currentDate, currentDay) = remember { getCurrentDateAndDay() }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-                actions = {
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp) // Circle size
-                            .background(
-                                color = Color.LightGray,
-                                shape = CircleShape
-                            ), // Light gray background with circle shape
-                        contentAlignment = Alignment.Center // Center the icon inside the circle
-                    ) {
-                        IconButton(onClick = {
-                            navController.navigate("ReminderScreen")
-                        }) {
-                            Icon(
-                                imageVector = Icons.Filled.Notifications, // Notification icon
-                                contentDescription = "Notification",
-                                tint = Color.Black, // Icon color
-                                modifier = Modifier.size(24.dp) // Icon size
-                            )
-                        }
-                    }
-                },
+    var context=LocalContext.current
+    Column(
+        modifier = Modifier
+            .background( color = lightgray)
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 16.dp)
+    ) {
 
-                title = {
-                        Row (
-//                            modifier = Modifier.padding(start = 18.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-//                            horizontalArrangement = Arrangement.Center
-                        ){
-                            Text(text = "$currentDate ,", fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold)
-                            Spacer(modifier = Modifier.width(10.dp))
-                            Text(text = currentDay, fontSize = 20.sp,fontWeight = FontWeight.Bold)
-//
-                        }
-//                    Text(
-//                        text = "",
-//                        fontWeight = FontWeight.Bold,
-//                        fontSize = 18.sp,
-//                        modifier = Modifier.padding(start = 5.dp),
-//                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
-        },
-        content = { paddingValues ->
-            Surface(
-                color = lightgray,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(horizontal = 16.dp, vertical = 16.dp)
-                ) {
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.White)
-                            .padding(horizontal = 14.dp, vertical = 14.dp),
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.White)
+                .padding(horizontal = 14.dp, vertical = 14.dp),
 //                        verticalAlignment = Alignment.CenterVertically,
 //                        horizontalArrangement = Arrangement.SpaceBetween
 
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+                Column {
+                    Text(
+                        text = "Heart Health",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                    Spacer(modifier = Modifier.size(2.dp))
+                    Text(text = "last record:Yesterday", fontSize = 12.sp)
+                }
+                Image(
+                    painter = painterResource(id = R.drawable.love),
+                    contentDescription = "love",
+                    modifier = Modifier.size(40.dp)
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+
+                ) {
+                Column(
+//                                modifier = Modifier.padding(start = 10.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Row(
+                        modifier = Modifier,
+                        verticalAlignment = Alignment.Bottom
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-
+                        Text(
+                            text = "80",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                        Column(
+                            verticalArrangement = Arrangement.Bottom,
+                            modifier = Modifier.padding(bottom = 4.dp, start = 3.dp)
                         ) {
-                            Column {
-                                Text(
-                                    text = "Heart Health",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 20.sp
-                                )
-                                Spacer(modifier = Modifier.size(2.dp))
-                                Text(text = "last record:Yesterday", fontSize = 12.sp)
-                            }
-                            Image(
-                                painter = painterResource(id = R.drawable.love),
-                                contentDescription = "love",
-                                modifier = Modifier.size(40.dp)
-                            )
+                            Text(text = "ms", fontSize = 16.sp)
                         }
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-
-                            ) {
-                            Column(
+                    }
+                    Text(text = "HRV", fontSize = 14.sp)
+                }
+                Divider(
+                    modifier = Modifier
+                        .width(2.dp)
+                        .height(50.dp),
+                    color = Color.Gray
+                )
+                Column(
 //                                modifier = Modifier.padding(start = 10.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Row(
-                                    modifier = Modifier,
-                                    verticalAlignment = Alignment.Bottom
-                                ) {
-                                    Text(
-                                        text = "80",
-                                        fontSize = 30.sp,
-                                        fontWeight = FontWeight.ExtraBold
-                                    )
-                                    Column(
-                                        verticalArrangement = Arrangement.Bottom,
-                                        modifier = Modifier.padding(bottom = 4.dp, start = 3.dp)
-                                    ) {
-                                        Text(text = "ms", fontSize = 16.sp)
-                                    }
-                                }
-                                Text(text = "HRV", fontSize = 14.sp)
-                            }
-                            Divider(
-                                modifier = Modifier
-                                    .width(2.dp)
-                                    .height(50.dp),
-                                color = Color.Gray
-                            )
-                            Column(
-//                                modifier = Modifier.padding(start = 10.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Row(
-                                    modifier = Modifier,
-                                    verticalAlignment = Alignment.Bottom
-                                ) {
-                                    Text(
-                                        text = "180",
-                                        fontSize = 30.sp,
-                                        fontWeight = FontWeight.ExtraBold
-                                    )
-                                    Column(
-                                        verticalArrangement = Arrangement.Bottom,
-                                        modifier = Modifier.padding(bottom = 4.dp, start = 3.dp)
-                                    ) {
-                                        Text(
-                                            text = "bpm",
-                                            fontSize = 16.sp,
-                                            fontWeight = FontWeight.W600
-                                        )
-                                    }
-                                }
-                                Text(text = "plus", fontSize = 14.sp)
-                            }
-                            Divider(
-                                modifier = Modifier
-                                    .width(2.dp)
-                                    .height(50.dp),
-                                color = Color.Gray
-                            )
-                            Column(
-//                                modifier = Modifier.padding(start = 10.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Row(
-                                    modifier = Modifier,
-                                    verticalAlignment = Alignment.Bottom
-                                ) {
-                                    Text(
-                                        text = "50",
-                                        fontSize = 30.sp,
-                                        fontWeight = FontWeight.ExtraBold
-                                    )
-                                    Column(
-                                        verticalArrangement = Arrangement.Bottom,
-                                        modifier = Modifier.padding(bottom = 0.dp, start = 3.dp)
-                                    ) {
-                                        Text(text = "%", fontSize = 16.sp)
-                                    }
-                                }
-                                Text(text = "Stress level", fontSize = 14.sp)
-                            }
-                            Spacer(modifier = Modifier.width(30.dp))
-                        }
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Button(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(48.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = btnbg,
-                                contentColor = Color.White
-                            ),
-//                            shape = RoundedCornerShape(6.dp),
-                            onClick = {
-                                navController.navigate("HeartRateMonitorScreen")
-                            }) {
-//                            Icon(imageVector = Icons.Default.Add, contentDescription = "")
-                            Spacer(modifier = Modifier.width(8.dp))
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Row(
+                        modifier = Modifier,
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        Text(
+                            text = "180",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                        Column(
+                            verticalArrangement = Arrangement.Bottom,
+                            modifier = Modifier.padding(bottom = 4.dp, start = 3.dp)
+                        ) {
                             Text(
-                                text = "Measure Now",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold
+                                text = "bpm",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.W600
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(22.dp))
+                    Text(text = "plus", fontSize = 14.sp)
+                }
+                Divider(
+                    modifier = Modifier
+                        .width(2.dp)
+                        .height(50.dp),
+                    color = Color.Gray
+                )
+                Column(
+//                                modifier = Modifier.padding(start = 10.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(204.dp),
+                        modifier = Modifier,
+                        verticalAlignment = Alignment.Bottom
                     ) {
-
+                        Text(
+                            text = "50",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.ExtraBold
+                        )
                         Column(
-                            modifier = Modifier
-                                .width(160.dp)
-                                .height(200.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(Color.White)
-                                .clickable {
+                            verticalArrangement = Arrangement.Bottom,
+                            modifier = Modifier.padding(bottom = 0.dp, start = 3.dp)
+                        ) {
+                            Text(text = "%", fontSize = 16.sp)
+                        }
+                    }
+                    Text(text = "Stress level", fontSize = 14.sp)
+                }
+                Spacer(modifier = Modifier.width(30.dp))
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = btnbg,
+                    contentColor = Color.White
+                ),
+//                            shape = RoundedCornerShape(6.dp),
+                onClick = {
+                    navController.navigate("HeartRateMonitorScreen")
+                }) {
+//                            Icon(imageVector = Icons.Default.Add, contentDescription = "")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Measure Now",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(22.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(204.dp),
+        ) {
 
-                                }
-                                .padding(horizontal = 14.dp,vertical = 14.dp),
-                            verticalArrangement = Arrangement.SpaceBetween,
+            Column(
+                modifier = Modifier
+                    .width(160.dp)
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color.White)
+                    .clickable {
 
-                            ) {
-                            Column {
-                                Text(
-                                    text = "Blood Pressure",
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Text(
-                                    text = "103/75 mmHg",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            }
+                    }
+                    .padding(horizontal = 14.dp,vertical = 14.dp),
+                verticalArrangement = Arrangement.SpaceBetween,
 
-                            Image(
-                                painter = painterResource(id = R.drawable.bloodpressuremoniter),
-                                contentDescription = "",
-                                modifier = Modifier
-                                    .size(76.dp)
-                                    .align(Alignment.End)
-                                    .graphicsLayer(
-                                        rotationZ = -40f,
-                                        transformOrigin = TransformOrigin(1f, 0f)
-                                    )
-                            )
+                ) {
+                Column {
+                    Text(
+                        text = "Blood Pressure",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "103/75 mmHg",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+                Image(
+                    painter = painterResource(id = R.drawable.bloodpressuremoniter),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(76.dp)
+                        .align(Alignment.End)
+                        .graphicsLayer(
+                            rotationZ = -40f,
+                            transformOrigin = TransformOrigin(1f, 0f)
+                        )
+                )
 
 //                            Image(
 //                                painter = painterResource(id = R.drawable.bloodpressuremoniter),
@@ -340,313 +286,324 @@ fun DailyScreen(navController: NavHostController) {
 //                                    .size(66.dp)
 //                                    .align(Alignment.End)
 //                            )
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                verticalArrangement = Arrangement.SpaceBetween,
+
+                ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(color = Color.White)
+                        .clickable {
+
                         }
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp),
-                            verticalArrangement = Arrangement.SpaceBetween,
-
-                            ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(color = Color.White)
-                                    .clickable {
-
-                                    }
-                                    .padding(horizontal = 14.dp, vertical = 14.dp),
-                            ) {
-                                Column(
-                                    modifier = Modifier.fillMaxSize()
-                                ) {
-                                    Row(
-//                                        modifier = Modifier.background(color = Color.Red)
-                                    ) {
-                                        Text(
-                                            text = "Blood Sugar",
-                                            fontSize = 16.sp,
-                                            fontWeight = FontWeight.W600
-                                        )
-                                    }
-                                    Image(
-                                        painter = painterResource(id = R.drawable.glucosemeter),
-                                        contentDescription = "",
-                                        modifier = Modifier
-                                            .size(76.dp)
-                                            .align(Alignment.End)
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(color = Color.White)
-                                    .clickable {
-                                        navController.navigate("weightScreen")
-                                    }
-                                    .padding(horizontal = 14.dp, vertical = 14.dp),
-                            ) {
-                                Column(
-                                    modifier = Modifier.fillMaxSize()
-                                ) {
+                        .padding(horizontal = 14.dp, vertical = 14.dp),
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
 //                                    Row(
 ////                                        modifier = Modifier.background(color = Color.Red)
 //                                    ) {
 //
 //                                    }
-                                    Text(
-                                        text = "Weight & BMI",
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Text(
-                                        text = "178.57 LBS",
-                                        fontSize = 14.sp,
-                                        color = Color.Gray,
-                                        fontWeight = FontWeight.SemiBold
-                                    )
-                                    Image(
-                                        painter = painterResource(id = R.drawable.bathroomscale),
-                                        contentDescription = "",
-                                        modifier = Modifier
-                                            .size(86.dp)
-                                            .align(Alignment.End)
-                                    )
-                                }
-                            }
-                        }
-
-                    }
-
-                    Spacer(modifier = Modifier.height(28.dp))
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(140.dp)
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(color = Color.LightGray)
-                            .padding(horizontal = 14.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxHeight(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(text = "Feel free to ask me",fontWeight = FontWeight.Bold,fontSize = 14.sp)
-                            Text(text = "anything about health",fontWeight = FontWeight.Bold,fontSize = 14.sp)
-                            Spacer(modifier = Modifier.height(10.dp))
-                            Button(
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = btnbg,
-                                    contentColor = Color.White
-                                ),
-                                modifier = Modifier.width(180.dp),
-                                onClick = { /*TODO*/ }) {
-                                Text(text = "Consult")
-                            }
-                        }
-                        Image(
-                            painter = painterResource(id = R.drawable.nutritionist),
-                            contentDescription = "consultent"
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(28.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
                         Text(
-                            text = "My Weekly stats",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
+                            text = "Blood Sugar",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
                         )
-                        Text(text = "Dec-8-Dec 14")
-                    }
-                    Spacer(modifier = Modifier.height(20.dp))
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(color = Color.White)
-                            .clickable {
-                                navController.navigate("weightScreen")
-                            }
-                            .padding(horizontal = 14.dp, vertical = 14.dp),
-                    ) {
-                        Row(
+                        Text(
+                            text = "80.0 mg/dl",
+                            fontSize = 14.sp,
+                            color = Color.Gray,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.glucosemeter),
+                            contentDescription = "",
                             modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Resting Heart Rate",
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.W400
-                            )
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowRight,
-                                contentDescription = ""
-                            )
-                        }
-                        Row(
-                            modifier = Modifier,
-                            verticalAlignment = Alignment.Bottom
-                        ) {
-                            Text(
-                                text = "80",
-                                fontSize = 30.sp,
-                                fontWeight = FontWeight.ExtraBold
-                            )
-                            Column(
-                                verticalArrangement = Arrangement.Center,
-                                modifier = Modifier
-                                    .width(120.dp)
-                                    .padding(bottom = 0.dp, start = 3.dp)
-                            ) {
-                                Row(
-                                    modifier = Modifier,
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-//                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-
-                                    Text(
-                                        text = "bpm",
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.W600
-                                    )
-
-                                    Box(
-                                        modifier = Modifier
-                                            .background(
-                                                color = Color.Green,
-                                                shape = RoundedCornerShape(12.dp)
-                                            )
-                                            .padding(horizontal = 8.dp, vertical = 2.dp)
-                                    ) {
-                                        Text(text = "Normal", fontSize = 14.sp, color = Color.Black)
-                                    }
-
-//                                    Text(text = "ms", fontSize = 16.sp)
-                                }
-
-                            }
-
-                        }
-
-                        LineChartComposable()
-//                        BarChartWithoutVerticalLines()
-
-                        Text(text = "Sorry we dont have data to check your blood pressure " +
-                                "please add reordds at leats todays to genrate your weekly health",
-                            modifier = Modifier.padding(horizontal = 14.dp,),
+                                .size(76.dp)
+                                .align(Alignment.End)
                         )
-//
                     }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
+                }
+                Spacer(modifier = Modifier.height(5.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(color = Color.White)
+                        .clickable {
+                            navController.navigate("weightScreen")
+                        }
+                        .padding(horizontal = 14.dp, vertical = 14.dp),
+                ) {
                     Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(color = Color.White)
-                            .clickable {
-
-                            }
-                            .padding(horizontal = 14.dp, vertical = 14.dp),
+                        modifier = Modifier.fillMaxSize()
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Stress Level",
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.W400
-                            )
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowRight,
-                                contentDescription = ""
-                            )
-                        }
-                        Row(
-                            modifier = Modifier,
-                            verticalAlignment = Alignment.Bottom
-                        ) {
-                            Text(
-                                text = "54",
-                                fontSize = 30.sp,
-                                fontWeight = FontWeight.ExtraBold
-                            )
-                            Column(
-                                verticalArrangement = Arrangement.Center,
-                                modifier = Modifier
-                                    .width(120.dp)
-                                    .padding(bottom = 0.dp, start = 3.dp)
-                            ) {
-                                Row(
-                                    modifier = Modifier,
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-//                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-
-                                    Text(
-                                        text = "%",
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.W600
-                                    )
-
-                                    Box(
-                                        modifier = Modifier
-                                            .background(
-                                                color = Color.Green,
-                                                shape = RoundedCornerShape(12.dp)
-                                            )
-                                            .padding(horizontal = 8.dp, vertical = 2.dp)
-                                    ) {
-                                        Text(text = "Moderate", fontSize = 14.sp, color = Color.Black)
-                                    }
-
-//                                    Text(text = "ms", fontSize = 16.sp)
-                                }
-
-                            }
-
-                        }
-                        LineChartComposable()
-
-//                        BarChartWithoutVerticalLines()
-
-                        Text(text = "Sorry we dont have data to check your blood pressure " +
-                                "please add reordds at leats todays to genrate your weekly health",
-                            modifier = Modifier.padding(horizontal = 14.dp,),
-                        )
+//                                    Row(
+////                                        modifier = Modifier.background(color = Color.Red)
+//                                    ) {
 //
+//                                    }
+                        Text(
+                            text = "Weight & BMI",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "178.57 LBS",
+                            fontSize = 14.sp,
+                            color = Color.Gray,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.bathroomscale),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(86.dp)
+                                .align(Alignment.End)
+                        )
                     }
-                    Spacer(modifier = Modifier.height(60.dp))
-//                    TabRowWithHorizontalPager()
-//                    Spacer(modifier = Modifier.height(1200.dp))
                 }
             }
+
         }
-    )
+
+        Spacer(modifier = Modifier.height(28.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(140.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(color = Color.LightGray)
+                .padding(horizontal = 14.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+
+        ) {
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Feel free to ask me",fontWeight = FontWeight.Bold,fontSize = 14.sp)
+                Text(text = "anything about health",fontWeight = FontWeight.Bold,fontSize = 14.sp)
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = btnbg,
+                        contentColor = Color.White
+                    ),
+                    modifier = Modifier.width(180.dp),
+                    onClick = {
+                        Toast.makeText(context, "Coming Soon!", Toast.LENGTH_SHORT).show()
+
+                    }) {
+                    Text(text = "Consult")
+                }
+            }
+            Image(
+                painter = painterResource(id = R.drawable.nutritionist),
+                contentDescription = "consultent"
+            )
+        }
+        Spacer(modifier = Modifier.height(28.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "My Weekly stats",
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+            Text(text = "Dec-8-Dec 14")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(color = Color.White)
+                .clickable {
+                    navController.navigate("weightScreen")
+                }
+                .padding(horizontal = 14.dp, vertical = 14.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Resting Heart Rate",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W400
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = ""
+                )
+            }
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Text(
+                    text = "80",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .width(120.dp)
+                        .padding(bottom = 0.dp, start = 3.dp)
+                ) {
+                    Row(
+                        modifier = Modifier,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+//                                    verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Text(
+                            text = "bpm",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.W600
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Green,
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                        ) {
+                            Text(text = "Normal", fontSize = 14.sp, color = Color.Black)
+                        }
+
+//                                    Text(text = "ms", fontSize = 16.sp)
+                    }
+
+                }
+
+            }
+
+            LineChartComposable()
+//                        BarChartWithoutVerticalLines()
+
+            Text(text = "Sorry we dont have data to check your blood pressure " +
+                    "please add reordds at leats todays to genrate your weekly health",
+                modifier = Modifier.padding(horizontal = 14.dp,),
+            )
+//
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(color = Color.White)
+                .clickable {
+
+                }
+                .padding(horizontal = 14.dp, vertical = 14.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Stress Level",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W400
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = ""
+                )
+            }
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Text(
+                    text = "54",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .width(120.dp)
+                        .padding(bottom = 0.dp, start = 3.dp)
+                ) {
+                    Row(
+                        modifier = Modifier,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+//                                    verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Text(
+                            text = "%",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.W600
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    color = Color.Green,
+                                    shape = RoundedCornerShape(12.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                        ) {
+                            Text(text = "Moderate", fontSize = 14.sp, color = Color.Black)
+                        }
+
+//                                    Text(text = "ms", fontSize = 16.sp)
+                    }
+
+                }
+
+            }
+            LineChartComposable()
+
+//                        BarChartWithoutVerticalLines()
+
+            Text(text = "Sorry we don't have data to check your blood pressure " +
+                    "please add reload's at leats today's to genrate your weekly health",
+                modifier = Modifier.padding(horizontal = 14.dp,),
+            )
+//
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+//                    TabRowWithHorizontalPager()
+//                    Spacer(modifier = Modifier.height(1200.dp))
+    }
+
+    
 }
 
 

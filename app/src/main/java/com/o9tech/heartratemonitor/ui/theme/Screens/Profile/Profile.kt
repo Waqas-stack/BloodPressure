@@ -48,7 +48,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.R
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.appbg
 import com.o9tech.heartratemonitor.ui.theme.btnbg
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
@@ -69,13 +72,14 @@ fun ProfileScreen(navController: NavHostController) {
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
                 ) {
-
+//                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+//                    Spacer(modifier = Modifier.height(10.dp))
                     Box(
                         modifier = Modifier
-                            .padding(top = 30.dp, bottom = 10.dp, start = 20.dp)
+                            .padding(top = 10.dp, bottom = 10.dp, start = 20.dp)
                             .size(50.dp)
                             .clip(CircleShape)
-                            .background(Color.LightGray)
+                            .background(lightgray)
                             .wrapContentSize(Alignment.Center)
                     ) {
                         Image(

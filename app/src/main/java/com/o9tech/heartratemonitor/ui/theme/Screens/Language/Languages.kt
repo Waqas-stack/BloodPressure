@@ -1,8 +1,10 @@
 package com.o9tech.heartratemonitor.ui.theme.Screens.Language
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +47,11 @@ fun LanguagesScreen(navController: NavHostController) {
 
                 },
 
+                actions = {
+                          Box(modifier = Modifier.size(120.dp)){
+                          }
+                },
+
                 title = {
                     Text(
                         text = "language",
@@ -76,3 +83,7 @@ fun LanguagesScreen(navController: NavHostController) {
         }
     )
 }
+
+
+
+

@@ -18,15 +18,21 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModelDataset
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 
 //
 //fun RecipesDetailsScreen(){
@@ -38,19 +44,26 @@ import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModelDatase
 @Composable
 fun DetailsScreen(navController: NavHostController, articleId: Int) {
     val article = RecipesDataModelDataset.SetHeartRate().find { it.id == articleId }
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Details") },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            Column {
+                TopAppBar(
+                    title = { Text("Details") },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        }
                     }
+                )
+                if (isInternetAvailable.value) {
+                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
                 }
-            )
+            }
         }
     ) {
         article?.let {

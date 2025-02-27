@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.graphics.shapes.android)
+    implementation(libs.androidx.compose.material.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -98,6 +100,9 @@ dependencies {
     implementation("androidx.camera:camera-extensions:${camerax_version}")
 
 
+    
+
+
     //hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
@@ -121,6 +126,13 @@ dependencies {
 
     //addmob
     implementation("com.google.android.gms:play-services-ads:23.6.0")
+
+
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.foundation:foundation-layout")
+
+
+
 
 
 

@@ -9,7 +9,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 1,
                 R.drawable.imagesheart,
-                "What is Heart Rate?",
+                "Heart Rate?",
                 ""
             )
         )
@@ -18,7 +18,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 2,
                 R.drawable.imagesattack,
-                "Factors \nAffecting Heart Rate",
+                "Affecting Heart Rate",
                 ""
             )
         )
@@ -42,7 +42,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 5,
                 R.drawable.healthheart,
-                "High\n Heart Rate complications",
+                "Heart complications",
                 ""
             )
         )
@@ -50,7 +50,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 6,
                 R.drawable.imagesbeautiful,
-                "Heart Rate Zones of children",
+                "Zones of children",
                 ""
             )
         )
@@ -58,7 +58,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 7,
                 R.drawable.notgood,
-                "Heart Rate Zones of children",
+                "Zones ",
                 ""
             )
         )
@@ -66,7 +66,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 8,
                 R.drawable.theheart,
-                "Heart Rate Zones of children",
+                "children",
                 ""
             )
         )
@@ -74,7 +74,7 @@ object HealthArticlesDataSet {
             HealthArticlesDataModel(
                 9,
                 R.drawable.overweight,
-                "Heart Rate Zones of children",
+                "Heart Rate",
                 ""
             )
         )

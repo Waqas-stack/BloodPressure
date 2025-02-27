@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,19 +27,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModel
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModelDataset
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
@@ -118,37 +125,43 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @Preview(showBackground = true)
 @Composable
 fun RecipeCategory(navController: NavHostController) {
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
+            Column {
+                TopAppBar(
+                    modifier = Modifier.padding(horizontal = 6.dp),
 
-                title = {
-                    Text(
-                        text = "Recipes",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "ArrowBack",
-                            modifier = Modifier.padding(start = 10.dp),
+                    title = {
+                        Text(
+                            text = "Recipes",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(start = 5.dp),
                         )
-                    }
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 10.dp),
+                            )
+                        }
 
 
-
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = lightgray,
+                    ),
+                )
+                if (isInternetAvailable.value) {
+                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+                }
+            }
         },
         content = {
             Surface(
@@ -160,7 +173,8 @@ fun RecipeCategory(navController: NavHostController) {
                 val featurere: List<RecipesDataModel> = RecipesDataModelDataset.SetHeartRate()
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .padding(8.dp),
                     contentPadding = PaddingValues(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(18.dp),

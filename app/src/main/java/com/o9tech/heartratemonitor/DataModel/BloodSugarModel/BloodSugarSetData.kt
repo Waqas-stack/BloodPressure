@@ -9,7 +9,7 @@ object BloodSugarSetData {
         bloodSugarList.add(
             BloodSugarDataModel(
                 1,
-                R.drawable.love,
+                R.drawable.healthlife1,
                 "Know about Lower Blood sugar",
                 Color(0xFF64B5F6)
             )
@@ -17,7 +17,7 @@ object BloodSugarSetData {
         bloodSugarList.add(
             BloodSugarDataModel(
                 2,
-                R.drawable.love,
+                R.drawable.healthlife5,
                 "Blood Sugar Normal Ranges",
                 Color(0xFFFFD54F)
             )
@@ -25,7 +25,7 @@ object BloodSugarSetData {
         bloodSugarList.add(
             BloodSugarDataModel(
                 3,
-                R.drawable.love,
+                R.drawable.glucosemeter,
                 "What is diabetes",
                 Color(0xFFFF8A65)
             )
@@ -33,7 +33,7 @@ object BloodSugarSetData {
         bloodSugarList.add(
             BloodSugarDataModel(
                 4,
-                R.drawable.love,
+                R.drawable.protectheart,
                 "Diabetes Tests & Diagnosis",
                 Color(0xFFBA68C8)
             )

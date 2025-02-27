@@ -41,6 +41,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.Screens.weight.LineChartComposable
 import com.o9tech.heartratemonitor.ui.theme.btnbg
 import com.o9tech.heartratemonitor.ui.theme.lightgray
@@ -52,50 +54,56 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @Composable
 fun TrackerCategoryScreen(navController: NavHostController) {
     Scaffold (
-        topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-
-                title = {
-                    Text(
-                        text = "Tracker",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                actions = {
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp) // Circle size
-                            .background(
-                                color = Color.LightGray,
-                                shape = CircleShape
-                            ), // Light gray background with circle shape
-                        contentAlignment = Alignment.Center // Center the icon inside the circle
-                    ) {
-                        IconButton(onClick = {
-//                            navController.navigate("ReminderScreen")
-                        }) {
-                            Icon(
-                                imageVector = Icons.Filled.Notifications, // Notification icon
-                                contentDescription = "Notification",
-                                tint = Color.Black, // Icon color
-                                modifier = Modifier.size(24.dp) // Icon size
-                            )
-                        }
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
-        },
+//        topBar = {
+//            Column {
+//                TopAppBar(
+//                    modifier = Modifier.padding(horizontal = 6.dp),
+//
+//                    title = {
+//                        Text(
+//                            text = "Tracker",
+//                            fontWeight = FontWeight.Bold,
+//                            fontSize = 22.sp,
+//                            modifier = Modifier.padding(start = 5.dp),
+//                        )
+//                    },
+//                    actions = {
+//                        Box(
+//                            modifier = Modifier
+//                                .size(40.dp) // Circle size
+//                                .background(
+//                                    color = Color.LightGray,
+//                                    shape = CircleShape
+//                                ), // Light gray background with circle shape
+//                            contentAlignment = Alignment.Center // Center the icon inside the circle
+//                        ) {
+//                            IconButton(onClick = {
+//                                //                            navController.navigate("ReminderScreen")
+//                            }) {
+//                                Icon(
+//                                    imageVector = Icons.Filled.Notifications, // Notification icon
+//                                    contentDescription = "Notification",
+//                                    tint = Color.Black, // Icon color
+//                                    modifier = Modifier.size(24.dp) // Icon size
+//                                )
+//                            }
+//                        }
+//                    },
+//                    colors = TopAppBarDefaults.topAppBarColors(
+//                        containerColor = lightgray
+//                    ),
+//                )
+//                Spacer(modifier = Modifier.height(10.dp))
+//                BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+//                Spacer(modifier = Modifier.height(10.dp))
+//            }
+//        },
         content = {
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)
+                    .padding(it),
+                color = lightgray
             ) {
                 Column (
                     modifier = Modifier
@@ -103,6 +111,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                         .padding(horizontal = 16.dp)
                         .verticalScroll(rememberScrollState())
                 ){
+
                     Card (
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
@@ -134,7 +143,9 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                                         containerColor = btnbg,
                                         contentColor = Color.White
                                     ),
-                                    onClick = { /*TODO*/ }) {
+                                    onClick = {
+                                        navController.navigate("HeartRateMonitorScreen")
+                                    }) {
                                     Text(
                                         text = "Measure",
                                         fontSize = 12.sp,
@@ -323,7 +334,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                             }
                         }
                     }
-                    Spacer(modifier = Modifier.height(100.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
             }
         }

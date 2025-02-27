@@ -1,21 +1,25 @@
 package com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.o9tech.heartratemonitor.ui.theme.Screens.utils.AppConstants
 
 
 @Composable
-fun BannersAds(modifier: Modifier, adSize: AdSize = AdSize.FULL_BANNER){
-    AndroidView(modifier = modifier, factory = {
+fun BannersAds(modifier: Modifier, adSize: AdSize = AdSize.BANNER){
+
+    AndroidView(modifier = modifier.fillMaxWidth(), factory = {
         AdView(it).apply {
 //            setAdSize(AdSize.FULL_BANNER)
             setAdSize(adSize)
-//            adUnitId = "ca-app-pub-3940256099942544/6300978111"
-            adUnitId = "ca-app-pub-3940256099942544/9214589741"
+            adUnitId = AppConstants.BANNER_AD_UNIT_ID
             loadAd(AdRequest.Builder().build())
         }
     })

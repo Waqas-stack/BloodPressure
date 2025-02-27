@@ -3,12 +3,8 @@ package com.o9tech.heartratemonitor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -47,14 +43,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        val controller = WindowInsetsControllerCompat(window, window.decorView)
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        val controller = WindowInsetsControllerCompat(window, window.decorView)
         // Configure to hide only the navigation bar
-        controller.hide(WindowInsetsCompat.Type.navigationBars()) // Hide navigation bar
-        controller.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//        controller.hide(WindowInsetsCompat.Type.navigationBars()) // Hide navigation bar
+//        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
 //        if (!hasrequiredpermission()) {
 ////            requestPermissions(CameraX_Permission, 0)
 //            ActivityCompat.requestPermissions(this, CameraX_Permission, 0)
@@ -118,22 +113,22 @@ class MainActivity : ComponentActivity() {
                         DetailssScreen(itemId, navController)
                     }
                     composable("DetailssssScreen") {
-                        DetailssssScreen()
+                        DetailssssScreen(navController)
                     }
 //                    composable("camerapermission") {
 //                        camerapermission()
 //                    }
                     composable("HeartRateMonitorScreen") {
-                        HeartRateMonitorScreen()
+                        HeartRateMonitorScreen(navController)
                     }
                     composable("weightScreen") {
-                        weightScreen()
+                        weightScreen(navController)
                     }
                     composable("TrackerScreen") {
                         TrackerScreen(navController)
                     }
                     composable("NewRecordScreen") {
-                        NewRecordScreen()
+                        NewRecordScreen(navController)
                     }
 //                    composable("TrackerCategoryScreen") {
 //                        TrackerCategoryScreen()

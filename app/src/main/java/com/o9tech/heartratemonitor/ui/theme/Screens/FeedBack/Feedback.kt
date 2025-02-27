@@ -1,7 +1,10 @@
 package com.o9tech.heartratemonitor.ui.theme.Screens.FeedBack
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,6 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +71,8 @@ fun FeedBackScreen(){
                         .fillMaxSize()
                         .padding(horizontal = 16.dp, vertical = 16.dp)
                 ){
-
+//                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         }

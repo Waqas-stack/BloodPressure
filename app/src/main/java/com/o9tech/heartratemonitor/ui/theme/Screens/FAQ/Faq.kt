@@ -35,11 +35,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
+import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
@@ -60,52 +64,61 @@ fun FaqScreen(navController: NavHostController) {
     var isExpandedsuggestion by remember { mutableStateOf(false) }
     var isExpandednoticed by remember { mutableStateOf(false) }
 
+    var context = LocalContext.current
+    val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
 
-    Scaffold (
+
+    Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-                navigationIcon = {
+            Column {
+                TopAppBar(
+                    modifier = Modifier.padding(horizontal = 6.dp),
+                    navigationIcon = {
 
-                   IconButton(onClick = {
-                       navController.popBackStack()
-                   }) {
-                       Icon(
-                           imageVector = Icons.Default.ArrowBack,
-                           contentDescription = "ArrowBack",
-                           modifier = Modifier.padding(start = 10.dp),
-                       )
-                   }
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "ArrowBack",
+                                modifier = Modifier.padding(start = 10.dp),
+                            )
+                        }
 
-                },
+                    },
 
-                title = {
-                    Text(
-                        text = "FAQ",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
+                    title = {
+                        Text(
+                            text = "FAQ",
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(start = 5.dp),
+                        )
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = lightgray
+                    ),
+                )
+                if (isInternetAvailable.value) {
+                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize = AdSize.BANNER)
+                }
+            }
         },
         content = { paddingValues ->
-            Surface (
+            Surface(
                 color = lightgray,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-            ){
-                Column (
+            ) {
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 16.dp)
-                ){
+                ) {
 
+                    Spacer(modifier = Modifier.height(10.dp))
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()

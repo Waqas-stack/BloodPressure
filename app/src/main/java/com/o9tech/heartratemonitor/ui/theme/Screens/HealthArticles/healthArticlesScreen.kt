@@ -44,12 +44,14 @@ import com.o9tech.heartratemonitor.R
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavHostController
+import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModel
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModelDataset
 import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataModel
 import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataSet
 import com.o9tech.heartratemonitor.DataModel.sleepModel.SleepModelDataSet
 import com.o9tech.heartratemonitor.DataModel.sleepModel.sleepDataModels
+import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,23 +61,27 @@ fun HealthArticlesScreen(navController: NavHostController) {
 
 
     Scaffold (
-        topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(horizontal = 6.dp),
-
-                title = {
-                    Text(
-                        text = "Info",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp,
-                        modifier = Modifier.padding(start = 5.dp),
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = lightgray
-                ),
-            )
-        },
+//        topBar = {
+//            Column {
+//                TopAppBar(
+//                    modifier = Modifier.padding(horizontal = 6.dp),
+//
+//                    title = {
+//                        Text(
+//                            text = "Info",
+//                            fontWeight = FontWeight.Bold,
+//                            fontSize = 22.sp,
+//                            modifier = Modifier.padding(start = 5.dp),
+//                        )
+//                    },
+//                    colors = TopAppBarDefaults.topAppBarColors(
+//                        containerColor = lightgray
+//                    ),
+//                )
+//                BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+//                Spacer(modifier = Modifier.height(10.dp))
+//            }
+//        },
         content = {
             Surface(
                 modifier = Modifier
@@ -88,6 +94,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp),
                 ) {
+                    
                    Row (
                        modifier = Modifier.fillMaxWidth(),
                        horizontalArrangement = Arrangement.SpaceBetween,
@@ -179,7 +186,8 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                 modifier = Modifier
                                     .width(150.dp)
                                     .height(130.dp)
-                                    .clip(RoundedCornerShape(10.dp)).background(Color.Black.copy(alpha = 0.7f))
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(Color.Black.copy(alpha = 0.7f))
                                     .clickable {
                                         navController.navigate("InformationScreen")
 //                                        navController.navigate("camerapermission")
@@ -273,7 +281,9 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                 modifier = Modifier
                                     .width(150.dp)
                                     .height(200.dp)
-                                    .clip(RoundedCornerShape(10.dp)).background(Color.Black.copy(alpha = 0.3f)).clickable {
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(Color.Black.copy(alpha = 0.3f))
+                                    .clickable {
                                         navController.navigate("details/${featurere[fetal].id}")
                                     }
                             ) {
@@ -334,6 +344,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
 //                            }
                         }
                     }
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
             }
         }

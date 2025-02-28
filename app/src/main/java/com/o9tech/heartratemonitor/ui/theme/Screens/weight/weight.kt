@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -64,7 +65,9 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun weightScreen(navController: NavHostController) {
+fun weightScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
 
     val lineChartData = listOf(
         LineChartEntity(0.0f, "Sun"),
@@ -86,7 +89,7 @@ fun weightScreen(navController: NavHostController) {
                     navigationIcon = {
 
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
@@ -272,7 +275,7 @@ fun weightScreen(navController: NavHostController) {
                         ),
 //                            shape = RoundedCornerShape(6.dp),
                         onClick = {
-                            navController.navigate("HeartRateMonitorScreen")
+                            safeNavController.navigate("HeartRateMonitorScreen")
                         }) {
 //                            Icon(imageVector = Icons.Default.Add, contentDescription = "")
                         Spacer(modifier = Modifier.width(8.dp))

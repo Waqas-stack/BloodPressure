@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
@@ -50,7 +51,10 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun FaqScreen(navController: NavHostController) {
+fun FaqScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
+
     var isExpandedappwork by remember { mutableStateOf(false) }
     var isExpandedResult by remember { mutableStateOf(false) }
     var isExpandedHotflash by remember { mutableStateOf(false) }
@@ -76,7 +80,7 @@ fun FaqScreen(navController: NavHostController) {
                     navigationIcon = {
 
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,

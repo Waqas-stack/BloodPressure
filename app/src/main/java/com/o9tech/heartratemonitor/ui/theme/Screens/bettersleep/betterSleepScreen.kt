@@ -200,6 +200,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataModel
 import com.o9tech.heartratemonitor.DataModel.healthArticles.HealthArticlesDataSet
@@ -517,7 +518,9 @@ import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BetterSleepScreen(navController: NavHostController) {
+fun BetterSleepScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
     var context = LocalContext.current
     val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold(
@@ -535,7 +538,7 @@ fun BetterSleepScreen(navController: NavHostController) {
                     },
                     navigationIcon = {
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                             // Handle back navigation
                         }) {
                             Icon(

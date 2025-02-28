@@ -45,6 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.AssessHeartModel.AssessHeartModel
 import com.o9tech.heartratemonitor.DataModel.AssessHeartModel.AssessHeartSetData
@@ -75,7 +76,8 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun InformationScreen(navController: NavHostController) {
+fun InformationScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
     var context = LocalContext.current
     val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold(
@@ -94,7 +96,7 @@ fun InformationScreen(navController: NavHostController) {
                     },
                     navigationIcon = {
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
@@ -180,7 +182,7 @@ fun InformationScreen(navController: NavHostController) {
                             .clip(RoundedCornerShape(10.dp))
                             .background(Color.White)
                             .clickable {
-                                navController.navigate("FaqScreen")
+                                safeNavController.navigate("FaqScreen")
                             }
                             .padding(14.dp),
                         verticalAlignment = Alignment.CenterVertically,

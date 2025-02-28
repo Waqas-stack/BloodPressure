@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
@@ -51,7 +52,9 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun NewRecordScreen(navController: NavHostController) {
+fun NewRecordScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
 
     var context = LocalContext.current
     val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
@@ -63,7 +66,7 @@ fun NewRecordScreen(navController: NavHostController) {
                 navigationIcon = {
 
                     IconButton(onClick = {
-                   navController.popBackStack()
+                        safeNavController.popBackStack()
                     }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,

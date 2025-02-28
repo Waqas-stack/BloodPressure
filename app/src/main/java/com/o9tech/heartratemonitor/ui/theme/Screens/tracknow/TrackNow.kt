@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.gms.ads.AdSize
@@ -32,6 +33,7 @@ import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
+@Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackNowScreen(){

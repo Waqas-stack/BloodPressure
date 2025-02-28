@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.o9tech.heartratemonitor.BottomMenu.BottomMenuItems
 import com.o9tech.heartratemonitor.R
 import com.o9tech.heartratemonitor.ui.theme.appbg
@@ -60,7 +61,9 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun MeasureScreen(navController: NavHostController) {
+fun MeasureScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
     val currentDateTime = remember {
         LocalDateTime.now()
     }
@@ -201,7 +204,7 @@ fun MeasureScreen(navController: NavHostController) {
                            .wrapContentSize() // Size of the heart box (make it large enough for the text to fit)
                            .offset(y = offsetY.dp) // Apply vertical motion
                            .graphicsLayer(scaleX = scale, scaleY = scale).clickable {
-                               navController.navigate("HeartRateMonitorScreen")
+                               safeNavController.navigate("HeartRateMonitorScreen")
                            } // Apply scaling
                        , // Make background transparent
                        contentAlignment = Alignment.Center // Center the text inside the heart

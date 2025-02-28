@@ -60,6 +60,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.rememberNavController
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -71,9 +72,11 @@ import java.util.Locale
 import com.o9tech.heartratemonitor.R
 
 @OptIn(ExperimentalMaterial3Api::class)
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun DailyScreen(navController: NavHostController) {
+fun DailyScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
 
     val (currentDate, currentDay) = remember { getCurrentDateAndDay() }
 
@@ -223,7 +226,7 @@ fun DailyScreen(navController: NavHostController) {
                 ),
 //                            shape = RoundedCornerShape(6.dp),
                 onClick = {
-                    navController.navigate("HeartRateMonitorScreen")
+                    safeNavController.navigate("HeartRateMonitorScreen")
                 }) {
 //                            Icon(imageVector = Icons.Default.Add, contentDescription = "")
                 Spacer(modifier = Modifier.width(8.dp))
@@ -343,7 +346,7 @@ fun DailyScreen(navController: NavHostController) {
                         .clip(RoundedCornerShape(10.dp))
                         .background(color = Color.White)
                         .clickable {
-                            navController.navigate("weightScreen")
+                            safeNavController.navigate("weightScreen")
                         }
                         .padding(horizontal = 14.dp, vertical = 14.dp),
                 ) {
@@ -441,7 +444,7 @@ fun DailyScreen(navController: NavHostController) {
                 .clip(RoundedCornerShape(10.dp))
                 .background(color = Color.White)
                 .clickable {
-                    navController.navigate("weightScreen")
+                    safeNavController.navigate("weightScreen")
                 }
                 .padding(horizontal = 14.dp, vertical = 14.dp),
         ) {
@@ -524,7 +527,7 @@ fun DailyScreen(navController: NavHostController) {
                 .clip(RoundedCornerShape(10.dp))
                 .background(color = Color.White)
                 .clickable {
-
+                    safeNavController.navigate("StressLevelSreen")
                 }
                 .padding(horizontal = 14.dp, vertical = 14.dp),
         ) {

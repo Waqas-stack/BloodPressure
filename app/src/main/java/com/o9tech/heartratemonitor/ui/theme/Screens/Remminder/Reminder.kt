@@ -37,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.Screens.MainScreen.checkInternet
@@ -46,7 +47,9 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun ReminderScreen(navController: NavHostController) {
+fun ReminderScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
     val isChecked = remember { mutableStateOf(false) }
     val isCheckedtwo = remember { mutableStateOf(false) }
     val isCheckedthree = remember { mutableStateOf(false) }
@@ -62,7 +65,7 @@ fun ReminderScreen(navController: NavHostController) {
                     modifier = Modifier.padding(horizontal = 6.dp),
                     navigationIcon = {
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,

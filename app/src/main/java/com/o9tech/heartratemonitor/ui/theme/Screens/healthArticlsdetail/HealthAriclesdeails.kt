@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModel
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModelDataset
@@ -124,7 +125,10 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun RecipeCategory(navController: NavHostController) {
+fun RecipeCategory(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
+
     var context = LocalContext.current
     val isInternetAvailable = remember { mutableStateOf(checkInternet(context)) }
     Scaffold(
@@ -143,7 +147,7 @@ fun RecipeCategory(navController: NavHostController) {
                     },
                     navigationIcon = {
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
@@ -188,7 +192,7 @@ fun RecipeCategory(navController: NavHostController) {
                                 .clip(RoundedCornerShape(10.dp))
                                 .background(Color.Black.copy(alpha = 0.3f))
                                 .clickable {
-                                    navController.navigate("detailss/${featurere[index].id}")
+                                    safeNavController.navigate("detailss/${featurere[index].id}")
                                 }
                         ) {
                             Image(

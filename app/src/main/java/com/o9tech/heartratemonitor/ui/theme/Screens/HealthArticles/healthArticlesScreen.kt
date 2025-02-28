@@ -43,7 +43,9 @@ import androidx.compose.ui.graphics.Brush
 import com.o9tech.heartratemonitor.R
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModel
 import com.o9tech.heartratemonitor.DataModel.RecipesModel.RecipesDataModelDataset
@@ -55,9 +57,11 @@ import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun HealthArticlesScreen(navController: NavHostController) {
+fun HealthArticlesScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
 
 
     Scaffold (
@@ -102,7 +106,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                    ){
                        Text(text = "Health Articles", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                        TextButton(onClick = {
-                           navController.navigate("InformationScreen")
+                           safeNavController.navigate("InformationScreen")
                        }) {
                            Text(text = "More", fontWeight = FontWeight.W400, fontSize = 12.sp)
                        }
@@ -189,7 +193,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                     .clip(RoundedCornerShape(10.dp))
                                     .background(Color.Black.copy(alpha = 0.7f))
                                     .clickable {
-                                        navController.navigate("InformationScreen")
+                                        safeNavController.navigate("InformationScreen")
 //                                        navController.navigate("camerapermission")
 //                                        navController.navigate("HeartRateMonitorScreen")
 //                                        navController.navigate("FingerScanScreen")
@@ -235,7 +239,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                     ){
                         Text(text = "Better Sleep", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                         TextButton(onClick = {
-                            navController.navigate("BetterSleepScreen")
+                            safeNavController.navigate("BetterSleepScreen")
                         }) {
                             Text(text = "More", fontWeight = FontWeight.W400, fontSize = 12.sp)
                         }
@@ -261,7 +265,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                     ){
                         Text(text = "Recipes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                         TextButton(onClick = {
-                            navController.navigate("RecipeCategory")
+                            safeNavController.navigate("RecipeCategory")
                         }) {
                             Text(text = "More", fontWeight = FontWeight.W400, fontSize = 12.sp)
                         }
@@ -284,7 +288,7 @@ fun HealthArticlesScreen(navController: NavHostController) {
                                     .clip(RoundedCornerShape(10.dp))
                                     .background(Color.Black.copy(alpha = 0.3f))
                                     .clickable {
-                                        navController.navigate("details/${featurere[fetal].id}")
+                                        safeNavController.navigate("details/${featurere[fetal].id}")
                                     }
                             ) {
                                 // Background Image

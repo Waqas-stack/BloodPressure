@@ -88,6 +88,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.o9tech.heartratemonitor.ui.theme.Screens.utils.AppConstants
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -121,7 +122,8 @@ fun HeartRateMonitorScreen(navController: NavHostController) {
         if(loadInterstitialAd){
         InterstitialAd.load(
             context,
-            "ca-app-pub-3940256099942544/1033173712",
+            AppConstants.Interstitial_AD_UNIT_ID,
+//            "ca-app-pub-3940256099942544/1033173712",
             AdRequest.Builder().build(),
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(error: LoadAdError) {

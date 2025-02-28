@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,22 +22,41 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.outlined.AccountBox
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,290 +67,364 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.R
 import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.appbg
 import com.o9tech.heartratemonitor.ui.theme.btnbg
+import com.o9tech.heartratemonitor.ui.theme.circuler
+import com.o9tech.heartratemonitor.ui.theme.circulerprofile
 import com.o9tech.heartratemonitor.ui.theme.lightgray
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun ProfileScreen(navController: NavHostController) {
+fun ProfileScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var isSheetOpen by remember { mutableStateOf(false) }
+
     val isChecked = remember { mutableStateOf(false) }
 
     Scaffold (
         content = {paddingValues->
             Surface(
-                modifier = Modifier.fillMaxSize().padding(paddingValues),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
                 color = lightgray
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                ) {
-//                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
-//                    Spacer(modifier = Modifier.height(10.dp))
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 10.dp, bottom = 10.dp, start = 20.dp)
-                            .size(50.dp)
-                            .clip(CircleShape)
-                            .background(lightgray)
-                            .wrapContentSize(Alignment.Center)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.person),
-                            contentDescription = "Profile Image",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
-                    Text(
-                        text = "Sync & Restore",
-                        modifier = Modifier.padding(start = 20.dp),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "sign in and back up your data",
-                        color = Color.Gray,
-                        modifier = Modifier.padding(start = 20.dp),
-                        fontSize = 12.sp,
-                    )
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Button(
-                        modifier = Modifier
-                            .padding(start = 20.dp, end = 20.dp)
-                            .fillMaxWidth()
-                            .height(55.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = btnbg,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(6.dp),
-                        onClick = { /*TODO*/ }) {
-//                Icon(imageVector = Icons.Default.Add, contentDescription = "")
-//                Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Sync", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-
+                Box (
+                    modifier = Modifier.fillMaxSize()
+                ){
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.White)
-                            .padding(10.dp),
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
                     ) {
-                        Text(text = "Settings", fontSize = 16.sp,color = Color.Gray)
-//                        Spacer(modifier = Modifier.height(20.dp))
-                        Row(
+                        //                    BannersAds(modifier = Modifier.fillMaxWidth(), adSize =  AdSize.BANNER)
+                        //                    Spacer(modifier = Modifier.height(10.dp))
+                        Box(
                             modifier = Modifier
-                                .fillMaxWidth().clickable {
-                                    navController.navigate("GernalScreen")
-                                }.padding(vertical = 10.dp)
-
+                                .padding(top = 10.dp, bottom = 10.dp, start = 20.dp)
+                                .size(50.dp)
+                                .clip(CircleShape)
+                                .background(circulerprofile)
+                                .wrapContentSize(Alignment.Center)
                         ) {
-                            Icon(imageVector = Icons.Default.Settings, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "General settings",
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Bold,
-
+                            Image(
+                                painter = painterResource(id = R.drawable.person),
+                                contentDescription = "Profile Image",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.size(30.dp)
                             )
                         }
-//                        Spacer(modifier = Modifier.height(14.dp))
-
-                        Divider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
+                        Text(
+                            text = "Sync & Restore",
+                            modifier = Modifier.padding(start = 20.dp),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
                         )
-//                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
+                        Text(
+                            text = "sign in and back up your data",
+                            color = Color.Gray,
+                            modifier = Modifier.padding(start = 20.dp),
+                            fontSize = 12.sp,
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Button(
                             modifier = Modifier
-                                .fillMaxWidth().clickable {
-                                    navController.navigate("ReminderScreen")
-                                }.padding(vertical = 10.dp)
-
-                        ) {
-                            Icon(imageVector = Icons.Default.CheckCircle, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "Reminders", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                .padding(start = 20.dp, end = 20.dp)
+                                .fillMaxWidth()
+                                .height(40.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = btnbg,
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(6.dp),
+                            onClick = { /*TODO*/ }) {
+                            //                Icon(imageVector = Icons.Default.Add, contentDescription = "")
+                            //                Spacer(modifier = Modifier.width(8.dp))
+                            Text(text = "Sync", fontSize = 18.sp, fontWeight = FontWeight.W700)
                         }
-//                        Spacer(modifier = Modifier.height(14.dp))
-                        Divider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
-                        )
-//                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth().clickable {
-                                    navController.navigate("LanguagesScreen")
-                                }.padding(vertical = 10.dp)
 
-                        ) {
-                            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "Language", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        }
-//                        Spacer(modifier = Modifier.height(14.dp))
-                        Divider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
+                        Spacer(modifier = Modifier.height(20.dp))
 
-                        ) {
-                            Icon(imageVector = Icons.Default.Delete, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "Export a file", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        }
-                        Spacer(modifier = Modifier.height(14.dp))
-                        Divider(
+
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(Color.White)
+                                .padding(10.dp),
                         ) {
-                            Row (
-                                modifier = Modifier.padding(start = 10.dp)
-                            ){
-                                Icon(imageVector = Icons.Default.ThumbUp, contentDescription = "")
+                            Text(text = "Settings", fontSize = 16.sp, color = Color.Gray)
+                            //                        Spacer(modifier = Modifier.height(20.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        safeNavController.navigate("GernalScreen")
+                                    }
+                                    .padding(vertical = 10.dp)
+
+                            ) {
+                                Icon(imageVector = Icons.Outlined.Settings, contentDescription = "")
                                 Spacer(modifier = Modifier.width(12.dp))
-                                Text(text = "Contact with Google Fit", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                Text(
+                                    text = "General settings",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
+
+                                    )
+                            }
+                            //                        Spacer(modifier = Modifier.height(14.dp))
+
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            //                        Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        safeNavController.navigate("ReminderScreen")
+                                    }
+                                    .padding(vertical = 10.dp)
+
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.CheckCircle,
+                                    contentDescription = ""
+                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Reminders",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            //                        Spacer(modifier = Modifier.height(14.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            //                        Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        safeNavController.navigate("LanguagesScreen")
+                                    }
+                                    .padding(vertical = 10.dp)
+
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.AccountCircle,
+                                    contentDescription = ""
+                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Language",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            //                        Spacer(modifier = Modifier.height(14.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                            ) {
+                                Icon(imageVector = Icons.Outlined.Delete, contentDescription = "")
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Export a file",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(14.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(start = 10.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.ThumbUp,
+                                        contentDescription = ""
+                                    )
+                                    Spacer(modifier = Modifier.width(12.dp))
+                                    Text(
+                                        text = "Contact with Google Fit",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+
+                                Switch(
+                                    //                        colors = SwitchDefaults.colors(
+                                    //                            checkedThumbColor = Color.White,
+                                    //                            checkedTrackColor = btnbg,
+                                    //                            uncheckedThumbColor = Color.White,
+                                    //                            uncheckedTrackColor = Color.LightGray
+                                    //                        ),
+                                    modifier = Modifier,
+                                    checked = isChecked.value,
+                                    onCheckedChange = { isChecked.value = it }
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(14.dp))
+
+
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(Color.White)
+                                .padding(10.dp),
+                        ) {
+                            Text(text = "More", fontSize = 16.sp, color = Color.Gray)
+                            Spacer(modifier = Modifier.height(20.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        isSheetOpen = true
+                                    }
+                                    .padding(vertical = 10.dp)
+
+                            ) {
+                                Icon(imageVector = Icons.Outlined.Star, contentDescription = "")
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Rate us",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(14.dp))
+
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                            ) {
+                                Icon(imageVector = Icons.Outlined.Share, contentDescription = "")
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Share with friends",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(14.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                            ) {
+                                Icon(imageVector = Icons.Outlined.Edit, contentDescription = "")
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Feedback",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(14.dp))
+                            Divider(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 40.dp)
+                                    .height(1.dp)
+                                    .background(circuler)
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.AccountBox,
+                                    contentDescription = ""
+                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Text(
+                                    text = "Privacy policy",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
 
-                            Switch(
-//                        colors = SwitchDefaults.colors(
-//                            checkedThumbColor = Color.White,
-//                            checkedTrackColor = btnbg,
-//                            uncheckedThumbColor = Color.White,
-//                            uncheckedTrackColor = Color.LightGray
-//                        ),
-                                modifier = Modifier,
-                                checked = isChecked.value,
-                                onCheckedChange = { isChecked.value = it }
-                            )
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+
                         }
-                        Spacer(modifier = Modifier.height(14.dp))
-
-
-
+                        Spacer(modifier = Modifier.height(34.dp))
 
                     }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.White)
-                            .padding(10.dp),
-                    ) {
-                        Text(text = "More", fontSize = 16.sp,color = Color.Gray)
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-
-                        ) {
-                            Icon(imageVector = Icons.Default.Settings, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "General settings", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        }
-                        Spacer(modifier = Modifier.height(14.dp))
-
-                        Divider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
+                    if (isSheetOpen) {
+                        RateUsBottomSheet(
+                            sheetState = sheetState,
+                            onDismiss = { isSheetOpen = false }
                         )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-
-                        ) {
-                            Icon(imageVector = Icons.Default.CheckCircle, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "Reminders", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        }
-                        Spacer(modifier = Modifier.height(14.dp))
-                        Divider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-
-                        ) {
-                            Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "Language", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        }
-                        Spacer(modifier = Modifier.height(14.dp))
-                        Divider(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 40.dp)
-                                .height(1.dp)
-                                .background(Color.LightGray)
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-
-                        ) {
-                            Icon(imageVector = Icons.Default.Delete, contentDescription = "")
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(text = "Export a file", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                        }
-
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-
-
                     }
-                    Spacer(modifier = Modifier.height(34.dp))
                 }
             }
         }
@@ -341,6 +435,242 @@ fun ProfileScreen(navController: NavHostController) {
    
 }
 
+
+
+
+
+
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun RateUsBottomSheet(
+//    sheetState: SheetState,
+//    onDismiss: () -> Unit
+//) {
+//    var rating by remember { mutableStateOf(0) } // Stores selected rating
+//
+//    ModalBottomSheet(
+//        onDismissRequest = onDismiss,
+//        sheetState = sheetState,
+//        containerColor = Color.White
+//    ) {
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(16.dp),
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Text(
+//                text = "Rate Our App",
+//                fontSize = 20.sp,
+//                fontWeight = FontWeight.Bold,
+//                color = Color.Black
+//            )
+//
+//            Spacer(modifier = Modifier.height(10.dp))
+//
+//            // Star Rating Row
+//            Row(
+//                horizontalArrangement = Arrangement.Center,
+//                verticalAlignment = Alignment.CenterVertically,
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                for (i in 1..5) {
+//                    Icon(
+//                        imageVector = if (i <= rating) Icons.Filled.Star else Icons.Outlined.Star,
+//                        contentDescription = "Star",
+//                        tint = Color.Red,
+//                        modifier = Modifier
+//                            .size(40.dp)
+//                            .clickable { rating = i }
+//                    )
+//                }
+//            }
+//
+//            Spacer(modifier = Modifier.height(20.dp))
+//
+//            Button(
+//                onClick = {
+//                    // Handle Rating Submission Here (Navigate to Play Store, etc.)
+//                    onDismiss()
+//                },
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text("Submit")
+//            }
+//
+//            Spacer(modifier = Modifier.height(10.dp))
+//        }
+//    }
+//}
+
+
+//
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun RateUsBottomSheet(
+//    sheetState: SheetState,
+//    onDismiss: () -> Unit
+//) {
+//    var rating by remember { mutableStateOf(0) } // Stores user-selected rating
+//
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//    ) {
+//        // 🏆 Emoji on Top-Left Corner
+//        Text(
+//            text = "🏆", // Change Emoji if needed (e.g., 😊, ⭐)
+//            fontSize = 30.sp,
+//            color = Color.Yellow,
+//            modifier = Modifier
+//                .offset(x = (-20).dp, y = (-20).dp) // Moves emoji outside top-left border
+//                .zIndex(2f) // Ensures it's above the sheet
+//        )
+//
+//        ModalBottomSheet(
+//            onDismissRequest = onDismiss,
+//            sheetState = sheetState,
+//            containerColor = Color.White
+//        ) {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(16.dp),
+//                horizontalAlignment = Alignment.CenterHorizontally
+//            ) {
+//                Text(
+//                    text = "Rate Our App",
+//                    fontSize = 20.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    color = Color.Black
+//                )
+//
+//                Spacer(modifier = Modifier.height(10.dp))
+//
+//                // Star Rating Row
+//                Row(
+//                    horizontalArrangement = Arrangement.Center,
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    for (i in 1..5) {
+//                        Icon(
+//                            imageVector = if (i <= rating) Icons.Filled.Star else Icons.Outlined.Star,
+//                            contentDescription = "Star",
+//                            tint = Color.Red,
+//                            modifier = Modifier
+//                                .size(40.dp)
+//                                .clickable { rating = i }
+//                        )
+//                    }
+//                }
+//
+//                Spacer(modifier = Modifier.height(20.dp))
+//
+//                Button(
+//                    onClick = {
+//                        // TODO: Handle Rating Submission (e.g., Navigate to Play Store)
+//                        onDismiss()
+//                    },
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Text("Submit")
+//                }
+//
+//                Spacer(modifier = Modifier.height(10.dp))
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RateUsBottomSheet(
+    sheetState: SheetState,
+    onDismiss: () -> Unit
+) {
+    var rating by remember { mutableStateOf(0) }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 30.dp)
+        ) {
+            ModalBottomSheet(
+                onDismissRequest = onDismiss,
+                sheetState = sheetState,
+                containerColor = Color.White
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "🏆",
+                        fontSize = 40.sp,
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .offset(x = (-1).dp, y = (-60).dp)
+                            .zIndex(2f)
+                    )
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Rate Our App",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        for (i in 1..5) {
+                            Icon(
+                                imageVector = if (i <= rating) Icons.Filled.Star else Icons.Outlined.Star,
+                                contentDescription = "Star",
+                                tint = Color.Red,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .clickable { rating = i }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Button(
+                        onClick = {
+                            // TODO: Handle Rating Submission (e.g., Navigate to Play Store)
+                            onDismiss()
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Submit")
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
+        }
+    }
+}
 
 
 

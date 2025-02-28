@@ -41,6 +41,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
 import com.o9tech.heartratemonitor.ui.theme.Screens.BannerAds.BannersAds
 import com.o9tech.heartratemonitor.ui.theme.Screens.weight.LineChartComposable
@@ -52,7 +53,9 @@ import com.o9tech.heartratemonitor.ui.theme.lightgray
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrackerCategoryScreen(navController: NavHostController) {
+fun TrackerCategoryScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
     Scaffold (
 //        topBar = {
 //            Column {
@@ -144,7 +147,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                                         contentColor = Color.White
                                     ),
                                     onClick = {
-                                        navController.navigate("HeartRateMonitorScreen")
+                                        safeNavController.navigate("HeartRateMonitorScreen")
                                     }) {
                                     Text(
                                         text = "Measure",
@@ -154,7 +157,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                             }
                             LineChartComposable()
                             TextButton(onClick = {
-                                navController.navigate("TrackerScreen")
+                                safeNavController.navigate("TrackerScreen")
                             },modifier = Modifier
                                 .align(Alignment.End)) {
                                 Text(text = "View More",
@@ -200,7 +203,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                                         containerColor = btnbg,
                                         contentColor = Color.White
                                     ),
-                                    onClick = { navController.navigate("NewRecordScreen") }) {
+                                    onClick = { safeNavController.navigate("NewRecordScreen") }) {
                                     Text(
                                         text = "Add",
                                         fontSize = 12.sp,
@@ -209,7 +212,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                             }
                             LineChartComposable()
                             TextButton(onClick = {
-                                navController.navigate("TrackerScreen")
+                                safeNavController.navigate("TrackerScreen")
                             },
                                 modifier = Modifier
                                     .align(Alignment.End)) {
@@ -254,7 +257,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                                         contentColor = Color.White
                                     ),
                                     onClick = {
-                                        navController.navigate("NewRecordScreen")
+                                        safeNavController.navigate("NewRecordScreen")
                                     }) {
                                     Text(
                                         text = "Add",
@@ -264,7 +267,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                             }
                             LineChartComposable()
                             TextButton(onClick = {
-                                navController.navigate("TrackerScreen")
+                                safeNavController.navigate("TrackerScreen")
                             }, modifier = Modifier
                                 .align(Alignment.End)) {
                                 Text(text = "View More",
@@ -310,7 +313,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                                         contentColor = Color.White
                                     ),
                                     onClick = {
-                                        navController.navigate("NewRecordScreen")
+                                        safeNavController.navigate("NewRecordScreen")
                                     }) {
 //                                Spacer(modifier = Modifier.width(8.dp))
                                     Text(
@@ -322,7 +325,7 @@ fun TrackerCategoryScreen(navController: NavHostController) {
                             }
                             LineChartComposable()
                             TextButton(onClick = {
-                                navController.navigate("TrackerScreen")
+                                safeNavController.navigate("TrackerScreen")
                             }, modifier = Modifier
                                 .align(Alignment.End)) {
                                 Text(text = "View More",

@@ -26,6 +26,7 @@ import com.o9tech.heartratemonitor.ui.theme.Screens.RecipesDetails.DetailsScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.RecipesDetails.DetailssScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.RecipesDetails.DetailssssScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.Remminder.ReminderScreen
+import com.o9tech.heartratemonitor.ui.theme.Screens.StressLevel.StressLevelSreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.TargetRange.TargetRangeScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.Tracker.TrackerScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.UnitSettings.UnintSettingsScreen
@@ -129,6 +130,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("NewRecordScreen") {
                         NewRecordScreen(navController)
+                    }
+                    composable("StressLevelSreen") {
+                        StressLevelSreen(navController)
                     }
 //                    composable("TrackerCategoryScreen") {
 //                        TrackerCategoryScreen()

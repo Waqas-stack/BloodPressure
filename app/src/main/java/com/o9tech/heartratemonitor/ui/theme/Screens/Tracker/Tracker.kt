@@ -66,6 +66,7 @@ import kotlinx.coroutines.launch
 
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -80,7 +81,9 @@ import com.o9tech.heartratemonitor.ui.theme.Screens.weight.LineChartComposable
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun TrackerScreen(navController: NavHostController) {
+fun TrackerScreen(navController: NavHostController?) {
+    val safeNavController = navController ?: rememberNavController()
+
     var selectedTabIndex by remember { mutableStateOf(0) }
     val tabTitles = listOf("Chart", "History")
     val coroutineScope = rememberCoroutineScope()
@@ -117,7 +120,7 @@ fun TrackerScreen(navController: NavHostController) {
                     navigationIcon = {
 
                         IconButton(onClick = {
-                            navController.popBackStack()
+                            safeNavController.popBackStack()
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,

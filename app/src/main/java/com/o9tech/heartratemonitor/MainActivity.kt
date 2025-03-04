@@ -16,6 +16,7 @@ import com.o9tech.heartratemonitor.ui.theme.BloodPressureTheme
 import com.o9tech.heartratemonitor.ui.theme.Screens.CameraUp.CameraViewModel
 import com.o9tech.heartratemonitor.ui.theme.Screens.DailySettings.DailySettingsSceen
 import com.o9tech.heartratemonitor.ui.theme.Screens.FAQ.FaqScreen
+import com.o9tech.heartratemonitor.ui.theme.Screens.FeedBack.FeedBackScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.GernalSettings.GernalScreen
 import com.o9tech.heartratemonitor.ui.theme.Screens.HeartRateMeasurment.HeartRateMonitorScreen
 //import com.o9tech.bloodpressure.ui.theme.Screens.HealthArticleDetail.camerapermission
@@ -133,6 +134,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("StressLevelSreen") {
                         StressLevelSreen(navController)
+                    }
+                    composable("FeedBackScreen") {
+                        FeedBackScreen(navController)
                     }
 //                    composable("TrackerCategoryScreen") {
 //                        TrackerCategoryScreen()

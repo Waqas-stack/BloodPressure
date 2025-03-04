@@ -1,6 +1,8 @@
 package com.o9tech.heartratemonitor.ui.theme.Screens.Profile
 
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -62,6 +64,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -89,6 +92,8 @@ fun ProfileScreen(navController: NavHostController?) {
     var isSheetOpen by remember { mutableStateOf(false) }
 
     val isChecked = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
 
     Scaffold (
         content = {paddingValues->
@@ -352,7 +357,9 @@ fun ProfileScreen(navController: NavHostController?) {
                             Spacer(modifier = Modifier.height(10.dp))
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .fillMaxWidth().clickable {
+                                        shareText(context,"Hey! Check out this amazing app: https://play.google.com/store/apps/details?id=com.yourap")
+                                    } .padding(vertical = 10.dp)
 
                             ) {
                                 Icon(imageVector = Icons.Outlined.Share, contentDescription = "")
@@ -374,7 +381,9 @@ fun ProfileScreen(navController: NavHostController?) {
                             Spacer(modifier = Modifier.height(10.dp))
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .fillMaxWidth().clickable {
+                                        safeNavController.navigate("FeedBackScreen")
+                                    }.padding(vertical = 10.dp)
 
                             ) {
                                 Icon(imageVector = Icons.Outlined.Edit, contentDescription = "")
@@ -420,7 +429,8 @@ fun ProfileScreen(navController: NavHostController?) {
 
                     }
                     if (isSheetOpen) {
-                        RateUsBottomSheet(
+//                        OverlappingOnBorder()
+                        RateUsBottomSheeta(
                             sheetState = sheetState,
                             onDismiss = { isSheetOpen = false }
                         )
@@ -625,11 +635,17 @@ fun RateUsBottomSheet(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Rate Our App",
+                        text = "Thank you for your \nsupport!",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = "we would be very grateful if you can rate us ",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -674,3 +690,109 @@ fun RateUsBottomSheet(
 
 
 
+
+
+
+@Composable
+fun OverlappingOnBorder() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 140.dp), // To keep it centered on the screen
+        contentAlignment = Alignment.Center
+    ) {
+        // 🔵 Blue Box (Main Background)
+        Box(
+            modifier = Modifier.fillMaxWidth().height(200.dp)
+                .background(Color.Blue)
+        )
+
+        // 🔴 Red Box (Overlapping on Border)
+        Box(
+            modifier = Modifier
+                .size(80.dp).padding(horizontal = 10.dp)
+                .background(Color.Red)
+                .align(Alignment.TopStart) // Moves it to top-left of Blue Box
+        )
+    }
+}
+
+
+
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RateUsBottomSheeta(
+    sheetState: SheetState,
+    onDismiss: () -> Unit
+) {
+    var rating by remember { mutableStateOf(0) }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        containerColor = Color.White
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Rate Our App",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // ⭐ Star Rating Row
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                for (i in 1..5) {
+                    Icon(
+                        imageVector = if (i <= rating) Icons.Filled.Star else Icons.Outlined.Star,
+                        contentDescription = "Star",
+                        tint = Color.Yellow,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { rating = i }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                onClick = {
+                    // TODO: Handle Rating Submission (e.g., Navigate to Play Store)
+                    onDismiss()
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Submit")
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+
+
+fun shareText(context: Context, text: String) {
+    val sendIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, text)
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, "Share via")
+    context.startActivity(shareIntent)
+}

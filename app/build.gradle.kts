@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -130,6 +129,10 @@ dependencies {
 
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.foundation:foundation-layout")
+
+    //spashscreen
+    implementation("androidx.core:core-splashscreen:1.0.0")
+
 
 
 

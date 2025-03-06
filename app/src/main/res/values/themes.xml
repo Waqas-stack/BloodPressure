@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.MyApp" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/SplashScreen</item>
+        <item name="windowSplashScreenAnimatedIcon"> @drawable/love</item>
+        <item name="postSplashScreenTheme">@style/Theme.BloodPressure</item>
+    </style>
 
     <style name="Theme.BloodPressure" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

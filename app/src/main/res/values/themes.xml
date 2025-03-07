@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.MyApp" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/SplashScreen</item>
-        <item name="windowSplashScreenAnimatedIcon"> @drawable/love</item>
+        <item name="windowSplashScreenAnimatedIcon"> @drawable/ssplash</item>
         <item name="postSplashScreenTheme">@style/Theme.BloodPressure</item>
     </style>
 
